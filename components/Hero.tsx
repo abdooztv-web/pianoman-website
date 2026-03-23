@@ -52,7 +52,7 @@ export default function Hero() {
         <h1
           className="text-white font-bold leading-none tracking-tight mb-6 md:mb-8"
           style={{
-            fontSize: "clamp(2.8rem, 14vw, 8.5rem)",
+            fontSize: "clamp(2rem, 10vw, 6rem)",
             textShadow: "0 0 80px rgba(0,0,0,0.5), 0 4px 30px rgba(0,0,0,0.7)",
           }}
         >
