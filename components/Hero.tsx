@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Hero() {
 
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
+    <section id="hero" className="relative min-h-screen flex flex-col items-center overflow-hidden bg-black">
       {/* ── Video ── */}
       <div className="absolute inset-0" style={{ pointerEvents: "none" }}>
         <video
@@ -29,7 +29,7 @@ export default function Hero() {
       </div>
 
       {/* ── Content ── */}
-      <div className="relative z-10 flex flex-col items-center text-center px-5 w-full max-w-5xl mx-auto mt-auto mb-24 md:mb-36">
+      <div className="relative z-10 flex flex-col items-center text-center px-5 w-full max-w-5xl mx-auto pt-28 md:pt-32 pb-20 md:pb-24">
 
         {/* Thin rule + eyebrow */}
         <div className="flex items-center gap-3 mb-6 md:mb-8">
