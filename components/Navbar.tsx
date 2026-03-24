@@ -14,8 +14,8 @@ export default function Navbar() {
       {/* Hidden checkbox — drives CSS-only menu open/close, no JS needed */}
       <input type="checkbox" id="nav-toggle" className="hidden peer" />
 
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 py-5 transition-all duration-300 peer-checked:bg-white peer-checked:shadow-sm peer-checked:py-3">
+      {/* Header — always has dark gradient so logo stays visible over any background */}
+      <header className="fixed top-0 left-0 right-0 z-50 py-5 bg-gradient-to-b from-black/60 to-transparent peer-checked:bg-white peer-checked:from-white peer-checked:shadow-sm peer-checked:py-3 transition-all duration-300">
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
 
           {/* Logo */}
@@ -51,24 +51,36 @@ export default function Navbar() {
             </a>
           </nav>
 
-          {/* Hamburger label — toggles checkbox */}
+          {/* Hamburger */}
           <label
             htmlFor="nav-toggle"
             className="md:hidden flex flex-col justify-center gap-1.5 w-10 h-10 cursor-pointer"
             aria-label="Toggle menu"
           >
-            <span className="block w-6 h-0.5 bg-white mx-auto transition-all duration-300 peer-checked:rotate-45 peer-checked:translate-y-2" />
-            <span className="block w-6 h-0.5 bg-white mx-auto transition-all duration-300 peer-checked:opacity-0" />
-            <span className="block w-6 h-0.5 bg-white mx-auto transition-all duration-300 peer-checked:-rotate-45 peer-checked:-translate-y-2" />
+            <span className="block w-6 h-0.5 bg-white mx-auto peer-checked:bg-[#8C1A2B]" />
+            <span className="block w-6 h-0.5 bg-white mx-auto peer-checked:bg-[#8C1A2B]" />
+            <span className="block w-6 h-0.5 bg-white mx-auto peer-checked:bg-[#8C1A2B]" />
           </label>
 
         </div>
       </header>
 
-      {/* Full-screen mobile menu — shown via peer-checked, no JS */}
+      {/* Full-screen mobile menu */}
       <div className="fixed inset-0 z-40 bg-white hidden peer-checked:flex flex-col md:hidden">
-        <div className="pt-20 px-8 flex flex-col flex-1">
 
+        {/* Close button — top right, always visible */}
+        <label
+          htmlFor="nav-toggle"
+          className="absolute top-5 right-6 w-10 h-10 flex items-center justify-center cursor-pointer text-gray-400 hover:text-[#8C1A2B] transition-colors"
+          aria-label="Close menu"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </label>
+
+        <div className="pt-20 px-8 flex flex-col flex-1">
           <nav className="flex flex-col gap-1 flex-1 justify-center">
             {links.map((l) => (
               <label key={l.href} htmlFor="nav-toggle">
@@ -96,7 +108,6 @@ export default function Navbar() {
               <a href="mailto:abdooztv@gmail.com" className="text-gray-400 text-xs">abdooztv@gmail.com</a>
             </div>
           </div>
-
         </div>
       </div>
     </>
