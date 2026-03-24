@@ -18,19 +18,21 @@ export default function Navbar() {
       <header className="fixed top-0 left-0 right-0 z-50 py-5 bg-gradient-to-b from-black/60 to-transparent peer-checked:bg-white peer-checked:from-white peer-checked:shadow-sm peer-checked:py-3 transition-all duration-300">
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
 
-          {/* Logo */}
-          <a href="#hero" className="flex items-center gap-3">
-            <Image
-              src="/logo-mark.jpg"
-              alt="Pianoman logo"
-              width={40}
-              height={40}
-              className="rounded-full object-cover border border-white/20"
-            />
-            <span className="font-bold text-sm tracking-[0.3em] uppercase text-white peer-checked:text-[#8C1A2B]">
-              Pianoman
-            </span>
-          </a>
+          {/* Logo — label closes menu on mobile, anchor navigates to hero */}
+          <label htmlFor="nav-toggle" className="cursor-pointer">
+            <a href="#hero" className="flex items-center gap-3">
+              <Image
+                src="/logo-mark.jpg"
+                alt="Pianoman logo"
+                width={40}
+                height={40}
+                className="rounded-full object-cover border border-white/20"
+              />
+              <span className="font-bold text-sm tracking-[0.3em] uppercase text-white peer-checked:text-[#8C1A2B]">
+                Pianoman
+              </span>
+            </a>
+          </label>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
@@ -71,7 +73,7 @@ export default function Navbar() {
         {/* Close button — top right, always visible */}
         <label
           htmlFor="nav-toggle"
-          className="absolute top-5 right-6 w-10 h-10 flex items-center justify-center cursor-pointer text-gray-400 hover:text-[#8C1A2B] transition-colors"
+          className="absolute top-5 right-6 w-10 h-10 flex items-center justify-center cursor-pointer text-gray-900 hover:text-[#8C1A2B] transition-colors"
           aria-label="Close menu"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
