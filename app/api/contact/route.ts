@@ -20,7 +20,8 @@ export async function POST(request: Request) {
     // TODO: After verifying pianoman-eg.com in Resend dashboard, change this to:
     // from: "Pianoman <info@pianoman-eg.com>"
     from: "Pianoman <onboarding@resend.dev>",
-    to: ["info@pianoman-eg.com"],
+    // TODO: After verifying pianoman-eg.com in Resend, change back to ["info@pianoman-eg.com"]
+    to: ["abdooztv@gmail.com"],
     replyTo: email,
     subject: `New enquiry from ${name}${service ? ` — ${service}` : ""}`,
     html: `
