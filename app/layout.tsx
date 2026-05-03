@@ -12,9 +12,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://pianoman-eg.com"),
   icons: {
     icon: [
-      { url: "/logo-mark.jpg", type: "image/jpeg" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/favicon.ico", sizes: "48x48" },
     ],
-    apple: "/logo-mark.jpg",
+    apple: "/icon.png",
   },
   title: {
     default: "Pianoman Egypt — Piano Rental, Tuning & Restoration Cairo",
