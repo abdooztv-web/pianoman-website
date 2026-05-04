@@ -1,12 +1,12 @@
 import Image from "next/image";
 
-const photos = [
-  { src: "/piano-keys.jpg", alt: "Piano keys", className: "col-span-2 row-span-2" },
-  { src: "/piano-studio.jpg", alt: "Piano studio" },
-  { src: "/piano-playing.jpg", alt: "Playing piano" },
-  { src: "/piano-repair.jpg", alt: "Piano repair" },
-  { src: "/piano-lesson.jpg", alt: "Piano lesson" },
-  { src: "/piano-close.jpg", alt: "Piano close up" },
+const mobile = [
+  { src: "/moments/DSC09272.jpg", alt: "Technician working on grand piano" },
+  { src: "/moments/DSC09494.jpg", alt: "Old upright piano awaiting restoration" },
+  { src: "/moments/DSC09370.jpg", alt: "Craftsman at the workshop bench" },
+  { src: "/moments/DSC09394.jpg", alt: "Hands repairing piano action" },
+  { src: "/moments/DSC09215.jpg", alt: "Piano hammers and action" },
+  { src: "/moments/DSC09467.jpg", alt: "Workshop tools of the trade" },
 ];
 
 export default function Gallery() {
@@ -30,16 +30,10 @@ export default function Gallery() {
 
         {/* Mobile: 2-col simple grid */}
         <div className="grid grid-cols-2 gap-3 md:hidden">
-          {[
-            { src: "/piano-keys.jpg", alt: "Piano keys" },
-            { src: "/piano-studio.jpg", alt: "Piano studio" },
-            { src: "/piano-repair.jpg", alt: "Piano repair" },
-            { src: "/piano-playing.jpg", alt: "Playing piano" },
-            { src: "/piano-lesson.jpg", alt: "Piano lesson" },
-            { src: "/piano-close.jpg", alt: "Piano close up" },
-          ].map((p) => (
+          {mobile.map((p) => (
             <div key={p.src} className="relative aspect-square overflow-hidden">
               <Image src={p.src} alt={p.alt} fill className="object-cover" />
+              <div className="absolute inset-0 bg-[#8C1A2B]/15 pointer-events-none" />
             </div>
           ))}
         </div>
@@ -47,22 +41,28 @@ export default function Gallery() {
         {/* Desktop: Masonry-style Grid */}
         <div className="hidden md:grid grid-cols-3 grid-rows-3 gap-3 h-[600px]">
           <div className="col-span-2 row-span-2 relative overflow-hidden group">
-            <Image src="/piano-keys.jpg" alt="Piano keys" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/moments/DSC09272.jpg" alt="Technician working on grand piano" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-[#8C1A2B]/15 pointer-events-none" />
           </div>
           <div className="relative overflow-hidden group">
-            <Image src="/piano-studio.jpg" alt="Piano studio" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/moments/DSC09494.jpg" alt="Old upright piano awaiting restoration" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-[#8C1A2B]/15 pointer-events-none" />
           </div>
           <div className="relative overflow-hidden group">
-            <Image src="/piano-playing.jpg" alt="Playing piano" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/moments/DSC09370.jpg" alt="Craftsman at the workshop bench" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-[#8C1A2B]/15 pointer-events-none" />
           </div>
           <div className="relative overflow-hidden group">
-            <Image src="/piano-repair.jpg" alt="Piano repair" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/moments/DSC09394.jpg" alt="Hands repairing piano action" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-[#8C1A2B]/15 pointer-events-none" />
           </div>
           <div className="relative overflow-hidden group">
-            <Image src="/piano-lesson.jpg" alt="Piano lesson" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/moments/DSC09215.jpg" alt="Piano hammers and action" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-[#8C1A2B]/15 pointer-events-none" />
           </div>
           <div className="relative overflow-hidden group">
-            <Image src="/piano-close.jpg" alt="Piano close up" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <Image src="/moments/DSC09467.jpg" alt="Workshop tools of the trade" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-[#8C1A2B]/15 pointer-events-none" />
           </div>
         </div>
       </div>

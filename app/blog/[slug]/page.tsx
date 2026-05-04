@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { posts } from "@/app/blog/posts";
@@ -87,6 +88,18 @@ export default async function PostPage({
                 >
                   {section.text}
                 </h2>
+              );
+            }
+            if (section.type === "image") {
+              return (
+                <div key={i} className="relative w-full aspect-[16/9] overflow-hidden my-4">
+                  <Image
+                    src={section.src}
+                    alt={section.alt}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               );
             }
             if (section.type === "list") {

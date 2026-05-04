@@ -1,92 +1,257 @@
-// To add real photos:
-// 1. Drop your before/after images into the /public folder
-// 2. Replace the placeholder <div> blocks with <Image> components like this:
-//    import Image from "next/image";
-//    <Image src="/before-1.jpg" alt="Piano before restoration" fill className="object-cover" />
-// 3. Update the "alt" text to describe each specific piano
+"use client";
 
-const pairs = [
+import { useState, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+const steps = [
   {
-    id: 1,
-    label: "Upright — Full Restoration",
-    before: { src: null, alt: "Piano before restoration — drop before-1.jpg into /public" },
-    after: { src: null, alt: "Piano after restoration — drop after-1.jpg into /public" },
+    src: "/restoration/1.jpg",
+    label: "Before",
+    caption: "The Schimmel arrived without front lighting",
+    tag: "BEFORE",
+    tagBg: "bg-gray-800",
   },
   {
-    id: 2,
-    label: "Grand Piano — Action Rebuild",
-    before: { src: null, alt: "Grand piano before rebuild — drop before-2.jpg into /public" },
-    after: { src: null, alt: "Grand piano after rebuild — drop after-2.jpg into /public" },
+    src: "/restoration/2.png",
+    label: "LED Craft",
+    caption: "Handmade LED strip designed and fitted by our team",
+    tag: "DURING",
+    tagBg: "bg-amber-700",
+  },
+  {
+    src: "/restoration/4.png",
+    label: "After — Workshop",
+    caption: "Schimmel with bespoke green lamps, fresh out of the workshop",
+    tag: "AFTER",
+    tagBg: "bg-[#8C1A2B]",
+  },
+  {
+    src: "/restoration/3.png",
+    label: "After — Final",
+    caption: "Delivered and placed — ready to be played",
+    tag: "AFTER",
+    tagBg: "bg-[#8C1A2B]",
   },
 ];
 
+function relativeDiff(i: number, active: number, total: number) {
+  let d = i - active;
+  if (d > total / 2) d -= total;
+  if (d < -total / 2) d += total;
+  return d;
+}
+
+/* ── Shared nav bar (dots + arrows) ── */
+function NavBar({ active, total, go }: { active: number; total: number; go: (i: number) => void }) {
+  return (
+    <div className="flex items-center justify-center gap-5 mt-7">
+      <button
+        onClick={() => go(active - 1)}
+        aria-label="Previous"
+        className="w-11 h-11 border border-gray-300 hover:border-[#8C1A2B] hover:text-[#8C1A2B] transition-colors flex items-center justify-center"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <div className="flex items-center gap-2">
+        {Array.from({ length: total }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => go(i)}
+            className={`h-1 rounded-full transition-all duration-300 ${
+              i === active ? "w-8 bg-[#8C1A2B]" : "w-3 bg-gray-300 hover:bg-gray-400"
+            }`}
+          />
+        ))}
+      </div>
+
+      <button
+        onClick={() => go(active + 1)}
+        aria-label="Next"
+        className="w-11 h-11 border border-gray-300 hover:border-[#8C1A2B] hover:text-[#8C1A2B] transition-colors flex items-center justify-center"
+      >
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
+/* ── Shared step labels ── */
+function StepLabels({ active, go }: { active: number; go: (i: number) => void }) {
+  return (
+    <div className="flex justify-center flex-wrap gap-x-5 gap-y-2 mt-5">
+      {steps.map((step, i) => (
+        <button
+          key={i}
+          onClick={() => go(i)}
+          className={`text-xs uppercase tracking-widest font-bold flex items-center gap-2 transition-colors ${
+            i === active ? "text-[#8C1A2B]" : "text-gray-400 hover:text-gray-600"
+          }`}
+        >
+          <span className={`w-4 h-4 rounded-full text-[9px] flex items-center justify-center font-bold flex-shrink-0 ${
+            i === active ? "bg-[#8C1A2B] text-white" : "bg-gray-200 text-gray-500"
+          }`}>
+            {i + 1}
+          </span>
+          {step.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export default function BeforeAfter() {
+  const [active, setActive] = useState(0);
+  const total = steps.length;
+  const touchX = useRef<number | null>(null);
+
+  function go(i: number) {
+    setActive(((i % total) + total) % total);
+  }
+
+  /* ── Touch handlers for mobile swipe ── */
+  function onTouchStart(e: React.TouchEvent) {
+    touchX.current = e.touches[0].clientX;
+  }
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchX.current === null) return;
+    const delta = touchX.current - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 48) go(delta > 0 ? active + 1 : active - 1);
+    touchX.current = null;
+  }
+
   return (
     <section id="transformations" className="bg-[#FAF8F5] py-16 md:py-32">
       <div className="max-w-6xl mx-auto px-5 md:px-6">
+
         {/* Header */}
-        <div className="mb-14">
+        <div className="mb-12 md:mb-16">
           <p className="text-[#8C1A2B] text-sm font-bold uppercase tracking-[0.3em] mb-4">
-            Our Work
+            Project Showcase
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight max-w-xl">
-            Before & After
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+            Schimmel — LED Rebuild
           </h2>
           <p className="mt-4 text-gray-500 max-w-lg">
-            Real pianos we've restored back to life. Every transformation starts with listening to what the instrument needs.
+            A Schimmel upright arrived without front lighting. Our team handcrafted a bespoke LED system from scratch and completed a full restoration.
           </p>
         </div>
 
-        {/* Pairs grid */}
-        <div className="flex flex-col gap-10">
-          {pairs.map((pair) => (
-            <div key={pair.id}>
-              <p className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4">
-                {pair.label}
-              </p>
-              <div className="grid grid-cols-2 gap-3 md:gap-5">
-                {/* Before */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <div className="absolute inset-0 border-2 border-dashed border-gray-300 bg-gray-50 flex flex-col items-center justify-center gap-3 text-center px-4">
-                    <svg className="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span className="text-xs text-gray-400">Photo coming soon</span>
+        {/* ───────── MOBILE: swipe strip ───────── */}
+        <div className="md:hidden">
+          <div
+            className="overflow-hidden rounded-none"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${active * 100}%)` }}
+            >
+              {steps.map((step, i) => (
+                <div key={i} className="w-full flex-shrink-0">
+                  <div className="relative aspect-[4/3] overflow-hidden shadow-xl">
+                    <Image src={step.src} alt={step.label} fill className="object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                    <span className={`absolute top-4 left-4 text-xs font-bold uppercase tracking-widest px-3 py-1.5 text-white ${step.tagBg}`}>
+                      {step.tag}
+                    </span>
+                    <div className="absolute bottom-5 left-5 right-5">
+                      <p className="text-white font-bold text-xl leading-tight">{step.label}</p>
+                      <p className="text-white/70 text-sm mt-1">{step.caption}</p>
+                    </div>
                   </div>
-                  <span className="absolute top-3 left-3 bg-gray-800 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 z-10">
-                    Before
-                  </span>
                 </div>
-
-                {/* After */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <div className="absolute inset-0 border-2 border-dashed border-[#8C1A2B]/30 bg-[#8C1A2B]/5 flex flex-col items-center justify-center gap-3 text-center px-4">
-                    <svg className="w-10 h-10 text-[#8C1A2B]/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span className="text-xs text-[#8C1A2B]/50">Photo coming soon</span>
-                  </div>
-                  <span className="absolute top-3 left-3 bg-[#8C1A2B] text-white text-xs font-bold uppercase tracking-wider px-3 py-1 z-10">
-                    After
-                  </span>
-                </div>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          {/* Swipe hint — only on first card */}
+          {active === 0 && (
+            <p className="text-center text-gray-400 text-xs mt-3 tracking-wider">
+              Swipe to explore →
+            </p>
+          )}
+
+          <NavBar active={active} total={total} go={go} />
+          <StepLabels active={active} go={go} />
+        </div>
+
+        {/* ───────── DESKTOP: 3D perspective carousel ───────── */}
+        <div className="hidden md:block">
+          <div
+            className="relative flex items-center justify-center h-[460px]"
+            style={{ perspective: "1400px" }}
+          >
+            {steps.map((step, i) => {
+              const diff = relativeDiff(i, active, total);
+              if (Math.abs(diff) > 1) return null;
+
+              const isActive = diff === 0;
+              const isLeft   = diff === -1;
+
+              const transform = isActive
+                ? "rotateY(0deg) translateX(0) scale(1)"
+                : isLeft
+                ? "rotateY(44deg) translateX(-74%) scale(0.74)"
+                : "rotateY(-44deg) translateX(74%) scale(0.74)";
+
+              const opacity   = isActive ? 1 : 0.52;
+              const zIndex    = isActive ? 20 : 10;
+              const boxShadow = isActive
+                ? "0 30px 70px rgba(0,0,0,0.38)"
+                : "0 10px 28px rgba(0,0,0,0.18)";
+
+              return (
+                <div
+                  key={step.src}
+                  className="absolute w-full max-w-[580px] transition-all duration-700 ease-in-out"
+                  style={{ transform, opacity, zIndex, transformStyle: "preserve-3d" }}
+                  onClick={() => !isActive && go(i)}
+                >
+                  <div
+                    className={`relative aspect-[4/3] overflow-hidden ${!isActive ? "cursor-pointer" : ""}`}
+                    style={{ boxShadow }}
+                  >
+                    <Image src={step.src} alt={step.label} fill className="object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                    <span className={`absolute top-4 left-4 text-xs font-bold uppercase tracking-widest px-3 py-1.5 text-white ${step.tagBg}`}>
+                      {step.tag}
+                    </span>
+                    {isActive && (
+                      <div className="absolute bottom-5 left-5 right-5">
+                        <p className="text-white font-bold text-2xl leading-tight">{step.label}</p>
+                        <p className="text-white/70 text-sm mt-1">{step.caption}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <NavBar active={active} total={total} go={go} />
+          <StepLabels active={active} go={go} />
         </div>
 
         {/* CTA */}
-        <div className="mt-12 pt-10 border-t border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+        <div className="mt-16 pt-10 border-t border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <p className="text-gray-600 max-w-md">
             Have a piano that needs restoring? We'd love to hear its story.
           </p>
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="inline-block bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-sm px-8 py-4 hover:bg-[#6B1221] transition-colors flex-shrink-0"
           >
             Get a Quote
-          </a>
+          </Link>
         </div>
+
       </div>
     </section>
   );

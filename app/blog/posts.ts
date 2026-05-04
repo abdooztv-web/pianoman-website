@@ -1,7 +1,8 @@
 export type PostSection =
   | { type: "paragraph"; text: string }
   | { type: "heading"; text: string }
-  | { type: "list"; items: string[] };
+  | { type: "list"; items: string[] }
+  | { type: "image"; src: string; alt: string };
 
 export type Post = {
   slug: string;
@@ -42,6 +43,11 @@ export const posts: Post[] = [
         text: "If the soundboard has cracks or separations, we repair or replace it. This is the heart of the piano's tone — a damaged soundboard cannot vibrate correctly, which means the piano can never sound right no matter how well it's tuned. Bridge work, case repairs, and plate refinishing also happen at this stage.",
       },
       {
+        type: "image",
+        src: "/moments/DSC09310.jpg",
+        alt: "Piano soundboard and strings during restoration",
+      },
+      {
         type: "heading",
         text: "Step 3: Restringing & Tuning Pins",
       },
@@ -56,6 +62,11 @@ export const posts: Post[] = [
       {
         type: "paragraph",
         text: "The action is the mechanical system between the keys and the strings. It includes hammers, dampers, shanks, flanges, and dozens of small felt and leather components. After 30–50 years, these parts wear out and lose their regulation. We replace worn felt, reshape or replace hammers, and regulate every note to the same precise specification.",
+      },
+      {
+        type: "image",
+        src: "/moments/DSC09445.jpg",
+        alt: "Copper wire spools used for piano restringing",
       },
       {
         type: "heading",
@@ -106,6 +117,11 @@ export const posts: Post[] = [
         text: "Most rental providers in Cairo offer upright pianos in various sizes — from compact studios (around 110cm) to full-size uprights (132cm+). Grand piano rentals are also available for events and serious study. If you're just starting out, a mid-size upright is almost always the right choice.",
       },
       {
+        type: "image",
+        src: "/moments/DSC09494.jpg",
+        alt: "Upright piano awaiting rental or restoration",
+      },
+      {
         type: "heading",
         text: "What to Look for in a Rental",
       },
@@ -118,6 +134,11 @@ export const posts: Post[] = [
           "A responsive provider who can help if something goes wrong",
           "Instruments that have been properly maintained, not warehoused",
         ],
+      },
+      {
+        type: "image",
+        src: "/moments/DSC09450.jpg",
+        alt: "Piano strings coiled and ready for restringing",
       },
       {
         type: "heading",
@@ -154,6 +175,11 @@ export const posts: Post[] = [
         text: "The clearest test: play a note on your piano and compare it to the same note played from a recording, a phone, or another instrument. If they don't match — if there's a beating, wavering sound when both notes play together — your piano is out of tune.",
       },
       {
+        type: "image",
+        src: "/moments/DSC09272.jpg",
+        alt: "Piano technician tuning a grand piano",
+      },
+      {
         type: "heading",
         text: "2. Some Notes Sound Fine, Others Don't",
       },
@@ -176,6 +202,11 @@ export const posts: Post[] = [
       {
         type: "paragraph",
         text: "Moving a piano — even within the same room — can disturb its tuning. The vibrations of transport and changes in temperature and humidity during a move all affect pitch. Always tune a piano after it has settled in its new location for two to four weeks.",
+      },
+      {
+        type: "image",
+        src: "/moments/DSC09370.jpg",
+        alt: "Piano craftsman working in the workshop",
       },
       {
         type: "heading",

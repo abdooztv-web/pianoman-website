@@ -1,4 +1,5 @@
 import Image from "next/image";
+import StatsStrip from "./StatsStrip";
 
 const steps = [
   {
@@ -111,27 +112,7 @@ export default function Restoration() {
         </div>
 
         {/* Bottom stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 mt-20 bg-[#8C1A2B]">
-          {[
-            { num: "1,000+", label: "Pianos Restored" },
-            { num: "40+", label: "Years Experience" },
-            { num: "100%", label: "Client Satisfaction" },
-            { num: "48h", label: "Assessment Turnaround" },
-          ].map((stat, i) => (
-            <div
-              key={stat.label}
-              className={[
-                "py-10 px-6 md:py-14 md:px-8 flex flex-col items-center justify-center border-white/20",
-                i % 2 === 0 ? "border-r" : "md:border-r",
-                i < 2 ? "border-b md:border-b-0" : "",
-                i === 3 ? "md:border-r-0" : "",
-              ].join(" ")}
-            >
-              <p className="text-white text-4xl md:text-5xl font-bold mb-2 leading-none">{stat.num}</p>
-              <p className="text-white/55 text-xs uppercase tracking-[0.2em] text-center">{stat.label}</p>
-            </div>
-          ))}
-        </div>
+        <StatsStrip />
       </div>
     </section>
   );
