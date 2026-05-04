@@ -62,7 +62,7 @@ export default function Restoration() {
             </div>
             {/* Floating accent card */}
             <div className="absolute bottom-0 right-0 md:-bottom-6 md:-right-6 bg-[#8C1A2B] text-white p-5 md:p-6 max-w-[180px] md:max-w-[200px]">
-              <p className="text-3xl font-bold mb-1">15+</p>
+              <p className="text-3xl font-bold mb-1">40+</p>
               <p className="text-sm text-white/70 uppercase tracking-wider">Years of craft experience</p>
             </div>
           </div>
@@ -90,35 +90,45 @@ export default function Restoration() {
               ))}
             </div>
 
-            <div className="mt-10 p-6 bg-white border-l-4 border-[#8C1A2B]">
-              <p className="text-gray-700 italic text-sm leading-relaxed">
-                "We've restored over 200 pianos across Cairo — from century-old uprights
-                found in estates to beloved family grands passed down through generations."
-              </p>
-              <p className="text-[#8C1A2B] font-bold text-sm mt-3">— Pianoman Team</p>
+            <div className="mt-10 flex items-center gap-5">
+              <div className="relative flex-shrink-0 w-36 h-36 rounded-full overflow-hidden border-2 border-[#8C1A2B]/30">
+                <Image
+                  src="/team.png"
+                  alt="Emad — Pianoman team"
+                  fill
+                  className="object-cover object-[center_15%]"
+                />
+              </div>
+              <div className="p-6 bg-white border-l-4 border-[#8C1A2B] flex-1">
+                <p className="text-gray-700 italic text-sm leading-relaxed">
+                  "We've restored over 1,000 pianos across Cairo — from century-old uprights
+                  found in estates to beloved family grands passed down through generations."
+                </p>
+                <p className="text-[#8C1A2B] font-bold text-sm mt-3">EMAD — PIANOMAN Team.</p>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Bottom stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-gray-200 mt-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 mt-20 bg-[#8C1A2B]">
           {[
-            { num: "200+", label: "Pianos Restored" },
-            { num: "15+", label: "Years Experience" },
+            { num: "1,000+", label: "Pianos Restored" },
+            { num: "40+", label: "Years Experience" },
             { num: "100%", label: "Client Satisfaction" },
             { num: "48h", label: "Assessment Turnaround" },
           ].map((stat, i) => (
             <div
               key={stat.label}
-              className={`p-6 md:p-8 text-center border-gray-200
-                ${i % 2 === 0 ? "border-r" : ""}
-                ${i < 2 ? "border-b" : ""}
-                md:border-r-0 md:border-b-0
-                ${i < 3 ? "md:border-r" : ""}
-              `}
+              className={[
+                "py-10 px-6 md:py-14 md:px-8 flex flex-col items-center justify-center border-white/20",
+                i % 2 === 0 ? "border-r" : "md:border-r",
+                i < 2 ? "border-b md:border-b-0" : "",
+                i === 3 ? "md:border-r-0" : "",
+              ].join(" ")}
             >
-              <p className="text-[#8C1A2B] text-3xl md:text-4xl font-bold mb-2">{stat.num}</p>
-              <p className="text-gray-500 text-xs uppercase tracking-wider">{stat.label}</p>
+              <p className="text-white text-4xl md:text-5xl font-bold mb-2 leading-none">{stat.num}</p>
+              <p className="text-white/55 text-xs uppercase tracking-[0.2em] text-center">{stat.label}</p>
             </div>
           ))}
         </div>
