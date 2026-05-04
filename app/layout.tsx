@@ -10,13 +10,6 @@ const ubuntu = Ubuntu({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pianoman-eg.com"),
-  icons: {
-    icon: [
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
-      { url: "/favicon.ico", sizes: "48x48" },
-    ],
-    apple: "/icon.png",
-  },
   title: {
     default: "Pianoman Egypt — Piano Rental, Tuning & Restoration Cairo",
     template: "%s | Pianoman Egypt",
