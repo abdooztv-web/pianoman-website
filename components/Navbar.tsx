@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,102 +14,115 @@ const links = [
 ];
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  const solid = open || scrolled;
+
   return (
     <>
-      {/* Hidden checkbox — drives CSS-only menu open/close, no JS needed */}
-      <input type="checkbox" id="nav-toggle" className="hidden peer" />
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300 ${
+          solid
+            ? "bg-white shadow-sm border-b border-gray-100"
+            : "bg-black/20 backdrop-blur-xl border-b border-white/10"
+        }`}
+      >
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-[auto_1fr_auto] items-center gap-4">
 
-      {/* Header — always has dark gradient so logo stays visible over any background */}
-      <header className="fixed top-0 left-0 right-0 z-50 py-5 bg-gradient-to-b from-black/60 to-transparent peer-checked:bg-white peer-checked:from-white peer-checked:shadow-sm peer-checked:py-3 transition-all duration-300">
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-3">
+            <Image
+              src="/logo-mark.jpg"
+              alt="Pianoman logo"
+              width={36}
+              height={36}
+              className={`rounded-full object-cover border transition-colors ${solid ? "border-gray-200" : "border-white/20"}`}
+            />
+            <span className={`font-bold text-sm tracking-[0.3em] uppercase transition-colors duration-300 ${solid ? "text-gray-900" : "text-white"}`}>
+              Pianoman
+            </span>
+          </Link>
 
-          {/* Logo — label closes menu on mobile, Link navigates to home */}
-          <label htmlFor="nav-toggle" className="cursor-pointer">
-            <Link href="/" className="flex items-center gap-3">
-              <Image
-                src="/logo-mark.jpg"
-                alt="Pianoman logo"
-                width={40}
-                height={40}
-                className="rounded-full object-cover border border-white/20"
-              />
-              <span className="font-bold text-sm tracking-[0.3em] uppercase text-white peer-checked:text-[#8C1A2B]">
-                Pianoman
-              </span>
-            </Link>
-          </label>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav — centered */}
+          <nav className="hidden md:flex items-center justify-center gap-8">
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-xs font-medium uppercase tracking-wider text-white/80 hover:text-white transition-colors"
+                className={`text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${
+                  solid ? "text-gray-500 hover:text-gray-900" : "text-white/75 hover:text-white"
+                }`}
               >
                 {l.label}
               </Link>
             ))}
+          </nav>
+
+          {/* Right: Book Now + Hamburger */}
+          <div className="flex items-center justify-end gap-3">
             <Link
               href="/#contact"
-              className="bg-[#8C1A2B] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 hover:bg-[#6B1221] transition-colors"
+              className="hidden md:block bg-[#8C1A2B] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 hover:bg-[#6B1221] transition-colors"
             >
               Book Now
             </Link>
-          </nav>
 
-          {/* Hamburger */}
-          <label
-            htmlFor="nav-toggle"
-            className="md:hidden flex flex-col justify-center gap-1.5 w-10 h-10 cursor-pointer"
-            aria-label="Toggle menu"
-          >
-            <span className="block w-6 h-0.5 bg-white mx-auto peer-checked:bg-[#8C1A2B]" />
-            <span className="block w-6 h-0.5 bg-white mx-auto peer-checked:bg-[#8C1A2B]" />
-            <span className="block w-6 h-0.5 bg-white mx-auto peer-checked:bg-[#8C1A2B]" />
-          </label>
+            {/* Animated hamburger → X */}
+            <button
+              onClick={() => setOpen(!open)}
+              className="md:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10"
+              aria-label={open ? "Close menu" : "Open menu"}
+            >
+              <span className={`block w-6 h-0.5 transition-all duration-300 origin-center ${solid ? "bg-gray-900" : "bg-white"} ${open ? "translate-y-2 rotate-45" : ""}`} />
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${solid ? "bg-gray-900" : "bg-white"} ${open ? "opacity-0 scale-x-0" : ""}`} />
+              <span className={`block w-6 h-0.5 transition-all duration-300 origin-center ${solid ? "bg-gray-900" : "bg-white"} ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+            </button>
+          </div>
 
         </div>
       </header>
 
-      {/* Full-screen mobile menu */}
-      <div className="fixed inset-0 z-40 bg-white hidden peer-checked:flex flex-col md:hidden">
-
-        {/* Close button — top right, always visible */}
-        <label
-          htmlFor="nav-toggle"
-          className="absolute top-5 right-6 w-10 h-10 flex items-center justify-center cursor-pointer text-gray-900 hover:text-[#8C1A2B] transition-colors"
-          aria-label="Close menu"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </label>
-
+      {/* Mobile full-screen menu */}
+      <div
+        className={`fixed inset-0 z-40 bg-white flex flex-col md:hidden transition-all duration-300 ${
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      >
         <div className="pt-20 px-8 flex flex-col flex-1">
           <nav className="flex flex-col gap-1 flex-1 justify-center">
             {links.map((l) => (
-              <label key={l.href} htmlFor="nav-toggle">
-                <Link
-                  href={l.href}
-                  className="block py-5 border-b border-gray-100 text-3xl font-bold text-gray-900 uppercase tracking-tight active:text-[#8C1A2B]"
-                >
-                  {l.label}
-                </Link>
-              </label>
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="block py-5 border-b border-gray-100 text-3xl font-bold text-gray-900 uppercase tracking-tight active:text-[#8C1A2B]"
+              >
+                {l.label}
+              </Link>
             ))}
           </nav>
 
           <div className="pb-12 flex flex-col gap-5">
-            <label htmlFor="nav-toggle" className="w-full">
-              <Link
-                href="/#contact"
-                className="block bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-sm py-5 text-center w-full"
-              >
-                Book a Service
-              </Link>
-            </label>
+            <Link
+              href="/#contact"
+              onClick={() => setOpen(false)}
+              className="block bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-sm py-5 text-center w-full"
+            >
+              Book a Service
+            </Link>
             <div className="flex flex-col gap-2 text-center">
               <a href="tel:01555001233" className="text-gray-500 text-sm">01555 001 233</a>
               <a href="mailto:abdooztv@gmail.com" className="text-gray-400 text-xs">abdooztv@gmail.com</a>

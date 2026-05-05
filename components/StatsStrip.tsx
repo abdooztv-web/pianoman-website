@@ -80,7 +80,7 @@ export default function StatsStrip() {
   }, []);
 
   return (
-    <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 mt-20 bg-[#8C1A2B]">
+    <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 bg-[#8C1A2B]">
       {stats.map((stat, i) => (
         <StatItem key={stat.label} {...stat} started={started} index={i} />
       ))}

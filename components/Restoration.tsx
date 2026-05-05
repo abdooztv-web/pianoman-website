@@ -27,43 +27,26 @@ const steps = [
 export default function Restoration() {
   return (
     <section id="restoration" className="bg-[#FAF8F5]">
-      {/* Top Banner */}
-      <div className="bg-[#8C1A2B] py-16 md:py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <div>
-              <p className="text-white/60 text-sm font-bold uppercase tracking-[0.3em] mb-4">
-                Our Signature Service
-              </p>
-              <h2 className="text-4xl md:text-6xl font-bold text-white leading-none">
-                Piano<br />Restoration
-              </h2>
-            </div>
-            <p className="text-white/75 text-lg max-w-md leading-relaxed">
-              Some instruments are too precious to abandon. Our restoration workshop
-              in Cairo specializes in returning forgotten pianos to their original grandeur —
-              one key at a time.
-            </p>
-          </div>
-        </div>
-      </div>
-
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-6 py-20 md:py-28">
+      <div className="max-w-6xl mx-auto px-6 pt-20 pb-20 md:pt-28 md:pb-24">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
-          {/* Left — Image stack */}
-          <div className="relative pb-10 md:pb-0">
+
+          {/* Left — Interactive image + floating card */}
+          <div className="group relative md:pb-6">
             <div className="relative aspect-[4/5] overflow-hidden">
               <Image
                 src="/piano-repair.jpg"
                 alt="Piano restoration in progress"
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
+              {/* Subtle red tint on hover */}
+              <div className="absolute inset-0 bg-[#8C1A2B]/0 group-hover:bg-[#8C1A2B]/10 transition-colors duration-500 pointer-events-none" />
             </div>
-            {/* Floating accent card */}
-            <div className="absolute bottom-0 right-0 md:-bottom-6 md:-right-6 bg-[#8C1A2B] text-white p-5 md:p-6 max-w-[180px] md:max-w-[200px]">
-              <p className="text-3xl font-bold mb-1">40+</p>
+
+            {/* 40+ card — flows below image on mobile, floats over on desktop */}
+            <div className="mt-4 max-w-[180px] md:mt-0 md:absolute md:bottom-0 md:right-0 md:-bottom-6 md:-right-6 bg-[#8C1A2B] text-white p-5 md:p-6 md:max-w-[200px] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-[#8C1A2B]/50 cursor-default">
+              <p className="text-3xl font-bold mb-1 tabular-nums">40+</p>
               <p className="text-sm text-white/70 uppercase tracking-wider">Years of craft experience</p>
             </div>
           </div>
@@ -91,8 +74,8 @@ export default function Restoration() {
               ))}
             </div>
 
-            <div className="mt-10 flex items-center gap-5">
-              <div className="relative flex-shrink-0 w-36 h-36 rounded-full overflow-hidden border-2 border-[#8C1A2B]/30">
+            <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-5">
+              <div className="relative flex-shrink-0 w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-[#8C1A2B]/30 mx-auto sm:mx-0">
                 <Image
                   src="/team.png"
                   alt="Emad — Pianoman team"
@@ -100,7 +83,7 @@ export default function Restoration() {
                   className="object-cover object-[center_15%]"
                 />
               </div>
-              <div className="p-6 bg-white border-l-4 border-[#8C1A2B] flex-1">
+              <div className="p-5 sm:p-6 bg-white border-l-4 border-[#8C1A2B] flex-1">
                 <p className="text-gray-700 italic text-sm leading-relaxed">
                   "We've restored over 1,000 pianos across Cairo — from century-old uprights
                   found in estates to beloved family grands passed down through generations."
@@ -110,10 +93,10 @@ export default function Restoration() {
             </div>
           </div>
         </div>
-
-        {/* Bottom stats */}
-        <StatsStrip />
       </div>
+
+      {/* Stats bar — full viewport width */}
+      <StatsStrip />
     </section>
   );
 }

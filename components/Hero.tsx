@@ -22,23 +22,10 @@ export default function Hero() {
           style={{ background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)", pointerEvents: "none" }}
         />
 
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-52"
-          style={{ background: "linear-gradient(to top, #ffffff 0%, rgba(255,255,255,0.5) 40%, transparent 100%)", pointerEvents: "none" }}
-        />
       </div>
 
       {/* ── Content ── */}
-      <div className="relative z-10 flex flex-col items-center text-center px-5 w-full max-w-5xl mx-auto pt-28 md:pt-32 pb-20 md:pb-24">
-
-        {/* Thin rule + eyebrow */}
-        <div className="flex items-center gap-3 mb-6 md:mb-8">
-          <div className="w-8 md:w-12 h-px bg-white/40" />
-          <p className="text-white/60 text-[10px] md:text-xs font-bold uppercase tracking-[0.4em]">
-            Cairo, Egypt
-          </p>
-          <div className="w-8 md:w-12 h-px bg-white/40" />
-        </div>
+      <div className="relative z-10 flex flex-col items-center text-center px-5 w-full max-w-5xl mx-auto pt-20 md:pt-24 pb-20 md:pb-24">
 
         {/* Brand name */}
         <p
