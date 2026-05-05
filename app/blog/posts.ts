@@ -10,6 +10,7 @@ export type Post = {
   date: string;
   readTime: string;
   excerpt: string;
+  keywords: string[];
   sections: PostSection[];
 };
 
@@ -21,6 +22,20 @@ export const posts: Post[] = [
     readTime: "5 min read",
     excerpt:
       "Most people don't realise how much goes into a full piano restoration. It's not just polishing the outside — we rebuild the instrument from the inside out.",
+    keywords: [
+      "piano restoration cairo",
+      "piano restoration egypt",
+      "piano rebuilding cairo",
+      "piano repair service egypt",
+      "antique piano restoration cairo",
+      "piano action rebuilding",
+      "piano restringing egypt",
+      "ترميم بيانو القاهرة",
+      "إصلاح بيانو",
+      "تجديد بيانو",
+      "ترميم بيانو مصر",
+      "إصلاح آلة البيانو",
+    ],
     sections: [
       {
         type: "paragraph",
@@ -89,6 +104,21 @@ export const posts: Post[] = [
     readTime: "4 min read",
     excerpt:
       "Thinking about renting a piano in Cairo? Here's everything you need to know — from choosing the right type to what's included in the rental.",
+    keywords: [
+      "piano rental cairo",
+      "rent a piano cairo",
+      "piano hire egypt",
+      "upright piano rental cairo",
+      "grand piano rental egypt",
+      "piano rental guide cairo",
+      "monthly piano rental egypt",
+      "piano for events cairo",
+      "تأجير بيانو القاهرة",
+      "إيجار بيانو",
+      "بيانو للإيجار في مصر",
+      "تأجير بيانو للفعاليات",
+      "بيانو إيجار شهري القاهرة",
+    ],
     sections: [
       {
         type: "paragraph",
@@ -161,6 +191,20 @@ export const posts: Post[] = [
     readTime: "3 min read",
     excerpt:
       "Pianos go out of tune gradually — which is why many owners don't notice until things are quite wrong. Here are the five clearest signs it's time to call a tuner.",
+    keywords: [
+      "piano tuning cairo",
+      "piano tuning egypt",
+      "piano tuning signs",
+      "piano out of tune cairo",
+      "piano pitch raise egypt",
+      "piano tuner home visit cairo",
+      "piano tuning service egypt",
+      "ضبط بيانو القاهرة",
+      "دوزان بيانو",
+      "ضبط بيانو مصر",
+      "متى يحتاج البيانو للضبط",
+      "خدمة ضبط البيانو القاهرة",
+    ],
     sections: [
       {
         type: "paragraph",

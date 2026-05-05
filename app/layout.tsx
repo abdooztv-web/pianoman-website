@@ -17,14 +17,37 @@ export const metadata: Metadata = {
   description:
     "Cairo's premier piano service: flexible rental plans, home tuning visits, and full restoration. Professional piano care across Egypt.",
   keywords: [
+    // English — service + location
     "piano rental cairo",
-    "piano tuning egypt",
+    "piano tuning cairo",
     "piano restoration cairo",
-    "rent a piano egypt",
     "piano repair cairo",
-    "تأجير بيانو القاهرة",
-    "ضبط بيانو مصر",
+    "piano store cairo",
+    "piano shop egypt",
+    "rent a piano egypt",
+    "piano technician cairo",
+    "piano home visit cairo",
+    "upright piano rental cairo",
+    "grand piano rental egypt",
+    "piano maintenance egypt",
+    "piano service cairo",
+    "pianoman egypt",
     "pianoman",
+    // Arabic — service + location
+    "تأجير بيانو القاهرة",
+    "إيجار بيانو",
+    "بيانو للإيجار",
+    "ضبط بيانو",
+    "دوزان بيانو",
+    "ضبط بيانو مصر",
+    "إصلاح بيانو",
+    "ترميم بيانو",
+    "صيانة بيانو",
+    "تجديد بيانو",
+    "بيانو مان مصر",
+    "بيانو مصر",
+    "محل بيانو القاهرة",
+    "خدمات بيانو",
   ],
   openGraph: {
     type: "website",
@@ -63,23 +86,34 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "MusicStore",
   "@id": "https://pianoman-eg.com",
   name: "Pianoman Egypt",
+  alternateName: ["Pianoman", "بيانو مان مصر", "Piano Man Egypt"],
   description:
-    "Cairo's premier piano rental, home visit tuning, and full restoration service.",
+    "Cairo's premier piano rental, home visit tuning, and full restoration service. متجر بيانو مان مصر — تأجير وصيانة وترميم البيانو في القاهرة.",
   url: "https://pianoman-eg.com",
   telephone: "+201555001233",
   email: "info@pianoman-eg.com",
+  // Add your Google Maps business URL here once you have it
+  sameAs: [
+    "https://www.instagram.com/pianoman.eg/",
+    "https://www.facebook.com/piano.maneg",
+  ],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Cairo",
+    addressRegion: "Cairo Governorate",
     addressCountry: "EG",
   },
   geo: {
     "@type": "GeoCoordinates",
     latitude: 30.0444,
     longitude: 31.2357,
+  },
+  areaServed: {
+    "@type": "City",
+    name: "Cairo",
   },
   openingHoursSpecification: [
     {

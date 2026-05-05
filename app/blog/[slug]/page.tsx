@@ -19,6 +19,7 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.excerpt,
+    keywords: post.keywords,
     alternates: { canonical: `https://pianoman-eg.com/blog/${post.slug}` },
     openGraph: {
       title: post.title,
@@ -47,8 +48,46 @@ export default async function PostPage({
   const post = posts.find((p) => p.slug === slug);
   if (!post) notFound();
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    keywords: post.keywords.join(", "),
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Organization",
+      name: "Pianoman Egypt",
+      url: "https://pianoman-eg.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Pianoman Egypt",
+      url: "https://pianoman-eg.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://pianoman-eg.com/icon.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://pianoman-eg.com/blog/${post.slug}`,
+    },
+    url: `https://pianoman-eg.com/blog/${post.slug}`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Pianoman Egypt",
+      url: "https://pianoman-eg.com",
+    },
+  };
+
   return (
     <div className="bg-white min-h-screen pt-32 pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <div className="max-w-2xl mx-auto px-5 md:px-6">
         {/* Back link */}
         <Link

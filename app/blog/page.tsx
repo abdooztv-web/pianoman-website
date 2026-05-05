@@ -3,9 +3,18 @@ import Link from "next/link";
 import { posts } from "@/app/blog/posts";
 
 export const metadata: Metadata = {
-  title: "Piano Blog",
+  title: "Piano Blog — Cairo Piano Care Guides",
   description:
-    "Guides, tips, and insights about piano care, restoration, tuning, and rental in Cairo and across Egypt.",
+    "Guides, tips, and insights about piano care, restoration, tuning, and rental in Cairo and across Egypt. مقالات عن صيانة وتأجير وترميم البيانو في مصر.",
+  keywords: [
+    "piano blog cairo",
+    "piano care tips egypt",
+    "piano tuning guide",
+    "piano restoration guide cairo",
+    "piano rental advice egypt",
+    "مقالات بيانو مصر",
+    "نصائح البيانو القاهرة",
+  ],
   alternates: { canonical: "https://pianoman-eg.com/blog" },
 };
 
