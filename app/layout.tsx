@@ -166,6 +166,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${ubuntu.variable} scroll-smooth`}>
       <head>
+        <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" type="image/x-icon" />
+        <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon" />
+        <link rel="icon" href="/icon.png?v=2" sizes="512x512" type="image/png" />
+        <link rel="apple-touch-icon" href="/icon.png?v=2" sizes="512x512" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
