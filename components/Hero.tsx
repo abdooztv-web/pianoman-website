@@ -25,7 +25,7 @@ export default function Hero() {
       </div>
 
       {/* ── Content ── */}
-      <div className="relative z-10 flex flex-col items-center text-center px-5 w-full max-w-5xl mx-auto pt-20 md:pt-24 pb-20 md:pb-24">
+      <div className="relative z-10 flex flex-col items-center text-center px-5 w-full max-w-5xl mx-auto pt-40 md:pt-24 pb-20 md:pb-24">
 
         {/* Brand name */}
         <p
@@ -53,10 +53,10 @@ export default function Hero() {
 
         {/* Subtext */}
         <p
-          className="text-white/70 font-light leading-relaxed mb-8 md:mb-12 max-w-sm md:max-w-lg text-sm md:text-base"
+          className="text-white/90 font-light leading-relaxed mb-8 md:mb-12 max-w-sm md:max-w-lg text-sm md:text-base"
           style={{ textShadow: "0 2px 20px rgba(0,0,0,0.8)" }}
         >
-          Cairo's trusted piano specialists — rental, home visits,
+          <span className="font-bold text-white">Cairo's</span> trusted piano specialists — rental, home visits,
           and full restoration for instruments that deserve to be heard.
         </p>
 
