@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { posts } from "@/app/blog/posts";
 import BlogProgressBar from "@/components/BlogProgressBar";
 import BlogSidebarCta from "@/components/BlogSidebarCta";
+import AuthorCard from "@/components/AuthorCard";
 
 const CATEGORY_COLORS: Record<string, string> = {
   Rental: "#8C1A2B",
@@ -158,6 +159,9 @@ export default async function PostPage({
           </svg>
           All articles
         </Link>
+
+        {/* Author card */}
+        <AuthorCard />
 
         {/* Excerpt / lead */}
         <p className="text-lg text-gray-500 leading-relaxed border-l-2 border-[#8C1A2B]/30 pl-5 mb-10">
