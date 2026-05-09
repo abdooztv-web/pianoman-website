@@ -1,16 +1,11 @@
-import Image from "next/image";
-
 export default function AuthorCard() {
   return (
     <div className="flex items-center gap-4 p-4 border border-gray-100 bg-[#FAF8F5] mb-10">
-      {/* Photo */}
-      <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-white shadow-sm">
-        <Image
-          src="/team/abdelrhman.jpg"
-          alt="Abdelrhman Abdalla"
-          fill
-          className="object-cover"
-        />
+      {/* Avatar icon */}
+      <div className="w-12 h-12 rounded-full flex-shrink-0 bg-gray-200 flex items-center justify-center">
+        <svg className="w-7 h-7 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+        </svg>
       </div>
 
       {/* Info */}
