@@ -54,7 +54,7 @@ export const posts: Post[] = [
       {
         type: "list",
         items: [
-          "Families with children starting lessons — the largest group. Renting provides a maintained acoustic instrument on a monthly plan without the EGP 15,000–50,000+ purchase commitment",
+          "Families with children starting lessons — the largest group. Renting provides a maintained acoustic instrument on a monthly plan without the EGP 70,000–360,000+ purchase commitment",
           "Event coordinators and venues — for weddings, corporate events, hotel performances, and galas. Short-term rental with delivery, on-site tuning, and pickup",
           "Musicians and studios — rehearsal studios and working musicians needing a maintained instrument without the capital expense of ownership",
         ],
