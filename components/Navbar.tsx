@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useT, useLanguage } from "@/lib/i18n/LanguageContext";
+import { gtmPush } from "@/lib/gtm";
 
 const navHrefs = [
   { key: "services" as const, href: "/#services" },
@@ -91,6 +92,7 @@ export default function Navbar() {
 
             <Link
               href="/#contact"
+              onClick={() => gtmPush({ event: "click_cta", cta_label: "Book Now", page_section: "navbar" })}
               className="hidden md:block bg-[#8C1A2B] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 hover:bg-[#6B1221] transition-colors"
             >
               {t.nav.bookNow}
@@ -144,13 +146,13 @@ export default function Navbar() {
           <div className="pb-12 flex flex-col gap-5">
             <Link
               href="/#contact"
-              onClick={() => setOpen(false)}
+              onClick={() => { setOpen(false); gtmPush({ event: "click_cta", cta_label: "Book Now", page_section: "navbar_mobile" }); }}
               className="block bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-sm py-5 text-center w-full"
             >
               {t.nav.bookService}
             </Link>
             <div className="flex flex-col gap-2 text-center">
-              <a href="tel:01555001233" className="text-gray-500 text-sm">01555 001 233</a>
+              <a href="tel:01555001233" onClick={() => gtmPush({ event: "click_phone", source: "navbar_mobile" })} className="text-gray-500 text-sm">01555 001 233</a>
               <a href="mailto:abdooztv@gmail.com" className="text-gray-400 text-xs">abdooztv@gmail.com</a>
             </div>
           </div>

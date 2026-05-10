@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { gtmPush } from "@/lib/gtm";
 import Image from "next/image";
 import Link from "next/link";
 import { useT } from "@/lib/i18n/LanguageContext";
@@ -229,6 +230,7 @@ export default function BeforeAfter() {
           </p>
           <Link
             href="/#contact"
+            onClick={() => gtmPush({ event: "click_cta", cta_label: t.beforeAfter.ctaBtn, page_section: "before_after", service_type: "restoration" })}
             className="inline-block bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-sm px-8 py-4 hover:bg-[#6B1221] transition-colors flex-shrink-0"
           >
             {t.beforeAfter.ctaBtn}

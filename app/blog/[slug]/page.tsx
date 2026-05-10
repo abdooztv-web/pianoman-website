@@ -253,6 +253,9 @@ export default async function PostPage({
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href="/#contact"
+                data-gtm-event="click_cta"
+                data-gtm-label="Book Now"
+                data-gtm-section="blog_post"
                 className="inline-block text-center bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-xs px-8 py-4 hover:bg-[#6B1221] transition-colors"
               >
                 Book Now
@@ -261,6 +264,8 @@ export default async function PostPage({
                 href={WHATSAPP_BASE}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-gtm-event="click_whatsapp"
+                data-gtm-source="blog_post"
                 className="inline-flex items-center justify-center gap-2 border border-[#25D366] text-[#25D366] font-bold uppercase tracking-widest text-xs px-8 py-4 hover:bg-[#25D366] hover:text-white transition-colors"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

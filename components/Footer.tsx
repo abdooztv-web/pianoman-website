@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useT } from "@/lib/i18n/LanguageContext";
+import { gtmPush } from "@/lib/gtm";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -38,6 +39,7 @@ export default function Footer() {
                 href="https://www.instagram.com/pianoman.eg/"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => gtmPush({ event: "click_social", platform: "instagram" })}
                 aria-label="Pianoman on Instagram"
                 className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#8C1A2B] transition-colors flex items-center justify-center"
               >
@@ -49,6 +51,7 @@ export default function Footer() {
                 href="https://www.facebook.com/piano.maneg"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => gtmPush({ event: "click_social", platform: "facebook" })}
                 aria-label="Pianoman on Facebook"
                 className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#8C1A2B] transition-colors flex items-center justify-center"
               >
@@ -60,6 +63,7 @@ export default function Footer() {
                 href="https://www.linkedin.com/company/pianoman-eg"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => gtmPush({ event: "click_social", platform: "linkedin" })}
                 aria-label="Pianoman on LinkedIn"
                 className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#8C1A2B] transition-colors flex items-center justify-center"
               >
@@ -95,6 +99,7 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:abdooztv@gmail.com"
+                  onClick={() => gtmPush({ event: "click_email", source: "footer" })}
                   className="text-white/60 text-sm hover:text-white transition-colors break-all"
                 >
                   abdooztv@gmail.com
@@ -103,6 +108,7 @@ export default function Footer() {
               <li>
                 <a
                   href="tel:01555001233"
+                  onClick={() => gtmPush({ event: "click_phone", source: "footer" })}
                   className="text-white/60 text-sm hover:text-white transition-colors"
                 >
                   01555 001 233

@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { useT } from "@/lib/i18n/LanguageContext";
+import { gtmPush } from "@/lib/gtm";
+
+const serviceTypes = ["rental", "tuning", "restoration"] as const;
 
 const servicesMeta = [
   {
@@ -133,6 +136,7 @@ export default function Services() {
                 <div className="mt-auto">
                   <Link
                     href={s.href}
+                    onClick={() => gtmPush({ event: "click_cta", cta_label: item.cta, page_section: "services", service_type: serviceTypes[idx] })}
                     className={`
                       block w-full text-center font-bold uppercase tracking-widest text-xs px-8 py-4
                       transition-colors duration-200

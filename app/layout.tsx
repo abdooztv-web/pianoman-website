@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Ubuntu, Cairo } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
+import RouteTracker from "@/components/RouteTracker";
 
 const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
@@ -215,19 +216,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/*
-          TODO — Google Analytics GA4:
-          1. Go to analytics.google.com → create property → get Measurement ID (G-XXXXXXXXXX)
-          2. Add the two script tags below, replacing G-XXXXXXXXXX with your ID
-
-          <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" />
-          <script dangerouslySetInnerHTML={{ __html: `
-            window.dataLayer=window.dataLayer||[];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js',new Date());
-            gtag('config','G-XXXXXXXXXX');
-          `}} />
-        */}
+        {/* Google Analytics GA4 */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-3XM49872J1" />
+        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3XM49872J1');` }} />
+        {/* End Google Analytics GA4 */}
         {/*
           TODO — Meta Pixel:
           1. Go to business.facebook.com → Events Manager → create Pixel → get Pixel ID
@@ -247,7 +239,10 @@ export default function RootLayout({
         {/* Google Tag Manager (noscript) */}
         <noscript dangerouslySetInnerHTML={{ __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ML5KKNX5" height="0" width="0" style="display:none;visibility:hidden"></iframe>` }} />
         {/* End Google Tag Manager (noscript) */}
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          <RouteTracker />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

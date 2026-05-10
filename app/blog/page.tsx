@@ -201,6 +201,9 @@ export default function BlogPage() {
           <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
             <Link
               href="/#contact"
+              data-gtm-event="click_cta"
+              data-gtm-label="Book Now"
+              data-gtm-section="blog_listing"
               className="inline-block text-center bg-white text-[#8C1A2B] font-bold uppercase tracking-widest text-xs px-8 py-4 hover:bg-gray-100 transition-colors"
             >
               Book Now
@@ -209,6 +212,8 @@ export default function BlogPage() {
               href={`https://wa.me/201555001233?text=${encodeURIComponent("Hi Pianoman! I'd like to enquire about your services.")}`}
               target="_blank"
               rel="noopener noreferrer"
+              data-gtm-event="click_whatsapp"
+              data-gtm-source="blog_listing"
               className="inline-flex items-center justify-center gap-2 text-center border border-white/40 text-white font-bold uppercase tracking-widest text-xs px-8 py-4 hover:border-white hover:bg-white/10 transition-colors"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useT } from "@/lib/i18n/LanguageContext";
+import { gtmPush } from "@/lib/gtm";
 
 export default function Contact() {
   const t = useT();
@@ -15,10 +16,17 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const formStartedRef = useRef(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  function handleFirstFocus() {
+    if (formStartedRef.current) return;
+    formStartedRef.current = true;
+    gtmPush({ event: "contact_form_start", page_section: "contact" });
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,8 +39,10 @@ export default function Contact() {
         body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error("Failed to send");
+      gtmPush({ event: "generate_lead", method: "contact_form", service_type: form.service || "general", page_section: "contact" });
       setSubmitted(true);
     } catch {
+      gtmPush({ event: "contact_form_error", page_section: "contact" });
       setError(t.contact.error);
     } finally {
       setLoading(false);
@@ -156,6 +166,7 @@ export default function Contact() {
                       required
                       value={form.name}
                       onChange={handleChange}
+                      onFocus={handleFirstFocus}
                       placeholder={t.contact.form.namePlaceholder}
                       className="border border-gray-200 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#8C1A2B] transition-colors bg-[#FAF8F5]"
                     />
@@ -239,6 +250,7 @@ export default function Contact() {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => gtmPush({ event: "click_whatsapp", source: "contact_section", service_type: form.service || "general" })}
                   className="flex items-center justify-center gap-3 border border-[#25D366] text-[#25D366] font-bold uppercase tracking-widest text-sm py-4 hover:bg-[#25D366] hover:text-white transition-colors"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

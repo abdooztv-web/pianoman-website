@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useT } from "@/lib/i18n/LanguageContext";
+import { gtmPush } from "@/lib/gtm";
 
 const WHATSAPP_URL =
   "https://wa.me/201555001233?text=" +
@@ -43,6 +44,7 @@ export default function BlogSidebarCta({ category }: { category: string }) {
         </p>
         <Link
           href="/#contact"
+          onClick={() => gtmPush({ event: "click_cta", cta_label: t.blog.sidebarBookNow, page_section: "blog_sidebar", service_type: category })}
           className="block text-center bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-[10px] px-4 py-3 hover:bg-[#6B1221] transition-colors mb-2"
         >
           {t.blog.sidebarBookNow}
@@ -51,6 +53,7 @@ export default function BlogSidebarCta({ category }: { category: string }) {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => gtmPush({ event: "click_whatsapp", source: "blog_sidebar", service_type: category })}
           className="flex items-center justify-center gap-2 border border-[#25D366] text-[#25D366] font-bold uppercase tracking-widest text-[10px] px-4 py-3 hover:bg-[#25D366] hover:text-white transition-colors"
         >
           <svg className="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">

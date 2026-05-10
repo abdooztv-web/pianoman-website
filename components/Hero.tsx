@@ -1,6 +1,7 @@
 "use client";
 
 import { useT } from "@/lib/i18n/LanguageContext";
+import { gtmPush } from "@/lib/gtm";
 
 export default function Hero() {
   const t = useT();
@@ -66,12 +67,14 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center w-full max-w-xs sm:max-w-none">
           <a
             href="#contact"
+            onClick={() => gtmPush({ event: "click_cta", cta_label: "Book Service", page_section: "hero", service_type: "general" })}
             className="bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-xs px-10 py-4 hover:bg-[#6B1221] transition-colors w-full sm:w-auto text-center"
           >
             {t.hero.bookService}
           </a>
           <a
             href="#services"
+            onClick={() => gtmPush({ event: "click_nav", label: "explore_services", page_section: "hero" })}
             className="border border-white/50 text-white font-medium uppercase tracking-widest text-xs px-10 py-4 hover:bg-white/10 transition-colors w-full sm:w-auto text-center"
           >
             {t.hero.exploreServices}
