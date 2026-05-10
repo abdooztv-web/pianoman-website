@@ -6,14 +6,19 @@ import Link from "next/link";
 import { useT, useLanguage } from "@/lib/i18n/LanguageContext";
 import { gtmPush } from "@/lib/gtm";
 
-const navHrefs = [
-  { key: "services" as const, href: "/#services" },
+const navItems = [
+  { key: "services"    as const, href: "/#services" },
   { key: "restoration" as const, href: "/#restoration" },
-  { key: "gallery" as const, href: "/#gallery" },
-  { key: "about" as const, href: "/#about" },
-  { key: "contact" as const, href: "/#contact" },
-  { key: "blog" as const, href: "/blog" },
+  { key: "gallery"     as const, href: "/#gallery" },
+  { key: "about"       as const, href: "/#about" },
+  { key: "contact"     as const, href: "/#contact" },
+  { key: "blog"        as const, href: "/blog" },
 ];
+
+function closeMenu() {
+  // Restore scroll immediately so hash scroll works before React re-renders
+  document.body.style.overflow = "";
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -60,10 +65,10 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Nav — centered */}
+          {/* Desktop Nav — plain <a> tags so hash scrolling is handled by the browser */}
           <nav className="hidden md:flex items-center justify-center gap-8">
-            {navHrefs.map((l) => (
-              <Link
+            {navItems.map((l) => (
+              <a
                 key={l.href}
                 href={l.href}
                 className={`text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${
@@ -71,7 +76,7 @@ export default function Navbar() {
                 }`}
               >
                 {t.nav[l.key]}
-              </Link>
+              </a>
             ))}
           </nav>
 
@@ -90,13 +95,14 @@ export default function Navbar() {
               {t.nav.langSwitch}
             </button>
 
-            <Link
+            {/* Book Now — plain <a> so the browser handles /#contact scroll directly */}
+            <a
               href="/#contact"
               onClick={() => gtmPush({ event: "click_cta", cta_label: "Book Now", page_section: "navbar" })}
               className="hidden md:block bg-[#8C1A2B] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 hover:bg-[#6B1221] transition-colors"
             >
               {t.nav.bookNow}
-            </Link>
+            </a>
 
             {/* Animated hamburger → X */}
             <button
@@ -130,27 +136,33 @@ export default function Navbar() {
             </button>
           </div>
 
+          {/* Nav links — plain <a> tags; closeMenu() clears body overflow immediately
+              so the browser can scroll to the hash anchor without waiting for React */}
           <nav className="flex flex-col gap-1 flex-1 justify-center">
-            {navHrefs.map((l) => (
-              <Link
+            {navItems.map((l) => (
+              <a
                 key={l.href}
                 href={l.href}
-                onClick={() => setOpen(false)}
+                onClick={() => { closeMenu(); setOpen(false); }}
                 className="block py-5 border-b border-gray-100 text-3xl font-bold text-gray-900 uppercase tracking-tight active:text-[#8C1A2B]"
               >
                 {t.nav[l.key]}
-              </Link>
+              </a>
             ))}
           </nav>
 
           <div className="pb-12 flex flex-col gap-5">
-            <Link
+            <a
               href="/#contact"
-              onClick={() => { setOpen(false); gtmPush({ event: "click_cta", cta_label: "Book Now", page_section: "navbar_mobile" }); }}
+              onClick={() => {
+                closeMenu();
+                setOpen(false);
+                gtmPush({ event: "click_cta", cta_label: "Book Now", page_section: "navbar_mobile" });
+              }}
               className="block bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-sm py-5 text-center w-full"
             >
               {t.nav.bookService}
-            </Link>
+            </a>
             <div className="flex flex-col gap-2 text-center">
               <a href="tel:01555001233" onClick={() => gtmPush({ event: "click_phone", source: "navbar_mobile" })} className="text-gray-500 text-sm">01555 001 233</a>
               <a href="mailto:abdooztv@gmail.com" className="text-gray-400 text-xs">abdooztv@gmail.com</a>
