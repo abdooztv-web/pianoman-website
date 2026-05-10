@@ -36,12 +36,21 @@ export async function generateMetadata({
     title: `${post.title} | Pianoman Egypt`,
     description: post.excerpt,
     keywords: post.keywords,
-    alternates: { canonical: `https://pianoman-eg.com/blog/${post.slug}` },
+    alternates: {
+      canonical: `https://pianoman-eg.com/blog/${post.slug}`,
+      languages: {
+        en: `https://pianoman-eg.com/blog/${post.slug}`,
+        ar: `https://pianoman-eg.com/blog/${post.slug}`,
+        "x-default": `https://pianoman-eg.com/blog/${post.slug}`,
+      },
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       url: `https://pianoman-eg.com/blog/${post.slug}`,
       type: "article",
+      locale: "en_US",
+      alternateLocale: "ar_EG",
       publishedTime: post.date,
       images: [{ url: `https://pianoman-eg.com${post.coverImage}` }],
     },
