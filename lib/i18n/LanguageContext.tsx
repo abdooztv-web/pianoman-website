@@ -20,7 +20,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   function apply(l: Lang) {
     document.documentElement.lang = l;
-    document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+    // Set dir on body only — setting it on <html> moves Chrome's scroll origin to the
+    // right side in RTL, which misaligns click coordinates from visual positions.
+    document.body.dir = l === "ar" ? "rtl" : "ltr";
   }
 
   function setLang(l: Lang) {

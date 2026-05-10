@@ -23,3 +23,7 @@ body {
 :lang(ar) {
   font-family: var(--font-cairo), 'Cairo', sans-serif;
 }
+
+html, body {
+  overflow-x: hidden;
+}

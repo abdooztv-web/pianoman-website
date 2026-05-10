@@ -201,7 +201,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning className={`${ubuntu.variable} ${cairo.variable} scroll-smooth`}>
+    <html lang="en" suppressHydrationWarning className={`${ubuntu.variable} ${cairo.variable} scroll-smooth`}>
       <head>
         <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" type="image/x-icon" />
         <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon" />
@@ -231,7 +231,7 @@ export default function RootLayout({
           `}} />
         */}
       </head>
-      <body className="min-h-full flex flex-col">
+      <body dir="ltr" className="min-h-full flex flex-col overflow-x-hidden">
         {/* Google Tag Manager (noscript) */}
         <noscript dangerouslySetInnerHTML={{ __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ML5KKNX5" height="0" width="0" style="display:none;visibility:hidden"></iframe>` }} />
         {/* End Google Tag Manager (noscript) */}

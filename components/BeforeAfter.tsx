@@ -111,7 +111,7 @@ export default function BeforeAfter() {
   }
 
   return (
-    <section id="transformations" className="bg-[#FAF8F5] py-16 md:py-32">
+    <section id="transformations" className="bg-[#FAF8F5] py-16 md:py-32 isolate">
       <div className="max-w-6xl mx-auto px-5 md:px-6">
 
         {/* Header */}
