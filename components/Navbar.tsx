@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useT, useLanguage } from "@/lib/i18n/LanguageContext";
 import { gtmPush } from "@/lib/gtm";
 
@@ -25,6 +26,18 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const t = useT();
   const { lang, setLang } = useLanguage();
+  const pathname = usePathname();
+
+  function toggleLang() {
+    const isArPage = pathname === "/ar" || pathname.startsWith("/ar/");
+    if (isArPage) {
+      window.location.href = "/";
+    } else if (pathname === "/") {
+      window.location.href = "/ar";
+    } else {
+      setLang(lang === "en" ? "ar" : "en");
+    }
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -84,7 +97,7 @@ export default function Navbar() {
           <div className="flex items-center justify-end gap-3">
             {/* Language toggle */}
             <button
-              onClick={() => setLang(lang === "en" ? "ar" : "en")}
+              onClick={toggleLang}
               className={`hidden md:flex items-center text-xs font-bold uppercase tracking-wider px-3 py-1.5 border transition-colors ${
                 solid
                   ? "border-gray-300 text-gray-500 hover:border-[#8C1A2B] hover:text-[#8C1A2B]"
@@ -129,7 +142,7 @@ export default function Navbar() {
           {/* Mobile lang toggle */}
           <div className="flex justify-end pb-4">
             <button
-              onClick={() => setLang(lang === "en" ? "ar" : "en")}
+              onClick={toggleLang}
               className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 border border-gray-300 text-gray-500 hover:border-[#8C1A2B] hover:text-[#8C1A2B] transition-colors"
             >
               {t.nav.langSwitch}

@@ -106,7 +106,8 @@ export const metadata: Metadata = {
     canonical: "https://pianoman-eg.com",
     languages: {
       "en": "https://pianoman-eg.com",
-      "ar": "https://pianoman-eg.com",
+      "ar": "https://pianoman-eg.com/ar",
+      "x-default": "https://pianoman-eg.com",
     },
   },
   robots: {
@@ -208,7 +209,8 @@ export default function RootLayout({
         <link rel="icon" href="/icon.png?v=2" sizes="512x512" type="image/png" />
         <link rel="apple-touch-icon" href="/icon.png?v=2" sizes="512x512" />
         <link rel="alternate" hrefLang="en" href="https://pianoman-eg.com" />
-        <link rel="alternate" hrefLang="ar" href="https://pianoman-eg.com" />
+        <link rel="alternate" hrefLang="ar" href="https://pianoman-eg.com/ar" />
+        <link rel="alternate" hrefLang="x-default" href="https://pianoman-eg.com" />
         {/* Google Tag Manager */}
         <script dangerouslySetInnerHTML={{ __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-ML5KKNX5');` }} />
         {/* End Google Tag Manager */}

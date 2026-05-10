@@ -3,11 +3,11 @@ import { posts } from "@/app/blog/posts";
 
 const BASE = "https://pianoman-eg.com";
 
-function hreflang(url: string) {
+function hreflang(url: string, arUrl?: string) {
   return {
     languages: {
       en: url,
-      ar: url,
+      ar: arUrl ?? url,
       "x-default": url,
     },
   };
@@ -28,7 +28,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 1,
-      alternates: hreflang(BASE),
+      alternates: hreflang(BASE, `${BASE}/ar`),
+    },
+    {
+      url: `${BASE}/ar`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 1,
+      alternates: hreflang(BASE, `${BASE}/ar`),
     },
     {
       url: `${BASE}/blog`,

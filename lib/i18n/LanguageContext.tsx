@@ -7,16 +7,20 @@ type LangCtx = { lang: Lang; setLang: (l: Lang) => void };
 
 const Ctx = createContext<LangCtx>({ lang: "en", setLang: () => {} });
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+export function LanguageProvider({ children, initialLang }: { children: React.ReactNode; initialLang?: Lang }) {
+  const [lang, setLangState] = useState<Lang>(initialLang ?? "en");
 
   useEffect(() => {
+    if (initialLang) {
+      apply(initialLang);
+      return;
+    }
     const saved = localStorage.getItem("lang") as Lang;
     if (saved === "ar" || saved === "en") {
       apply(saved);
       setLangState(saved);
     }
-  }, []);
+  }, [initialLang]);
 
   function apply(l: Lang) {
     document.documentElement.lang = l;
