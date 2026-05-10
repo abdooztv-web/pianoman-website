@@ -1,4 +1,10 @@
+"use client";
+
+import { useT } from "@/lib/i18n/LanguageContext";
+
 export default function AuthorCard() {
+  const t = useT();
+
   return (
     <div className="flex items-center gap-4 p-4 border border-gray-100 bg-[#FAF8F5] mb-10">
       {/* Avatar icon */}
@@ -13,10 +19,10 @@ export default function AuthorCard() {
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-sm font-bold text-gray-900">Abdelrhman Abdalla</span>
           <span className="text-gray-300 text-xs">·</span>
-          <span className="text-xs text-gray-400">Co-Founder, Pianoman Egypt</span>
+          <span className="text-xs text-gray-400">{t.authorCard.title}</span>
         </div>
         <p className="text-xs text-gray-400 mt-0.5 leading-snug">
-          Piano specialist in Cairo. I run Pianoman Egypt — rental, tuning, and restoration.
+          {t.authorCard.bio}
         </p>
       </div>
 

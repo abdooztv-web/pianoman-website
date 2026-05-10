@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Ubuntu } from "next/font/google";
+import { Ubuntu, Cairo } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
 const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
+});
+
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -39,15 +46,23 @@ export const metadata: Metadata = {
     "بيانو للإيجار",
     "ضبط بيانو",
     "دوزان بيانو",
+    "دوزان بيانو القاهرة",
     "ضبط بيانو مصر",
     "إصلاح بيانو",
+    "تصليح بيانو",
+    "تصليح بيانو مصر",
     "ترميم بيانو",
+    "ترميم بيانو مصر",
     "صيانة بيانو",
+    "صيانة بيانو القاهرة",
     "تجديد بيانو",
     "بيانو مان مصر",
     "بيانو مصر",
     "محل بيانو القاهرة",
     "خدمات بيانو",
+    "شراء بيانو مصر",
+    "بيع بيانو مصر",
+    "بيانو مستعمل مصر",
   ],
   openGraph: {
     type: "website",
@@ -164,12 +179,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ubuntu.variable} scroll-smooth`}>
+    <html lang="en" dir="ltr" suppressHydrationWarning className={`${ubuntu.variable} ${cairo.variable} scroll-smooth`}>
       <head>
         <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" type="image/x-icon" />
         <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon" />
         <link rel="icon" href="/icon.png?v=2" sizes="512x512" type="image/png" />
         <link rel="apple-touch-icon" href="/icon.png?v=2" sizes="512x512" />
+        <link rel="alternate" hrefLang="en" href="https://pianoman-eg.com" />
+        <link rel="alternate" hrefLang="ar" href="https://pianoman-eg.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -202,7 +219,9 @@ export default function RootLayout({
           `}} />
         */}
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

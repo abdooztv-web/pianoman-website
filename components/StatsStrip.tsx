@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useT } from "@/lib/i18n/LanguageContext";
 
-const stats = [
-  { target: 1000, suffix: "+", label: "Pianos Restored" },
-  { target: 40,   suffix: "+", label: "Years Experience" },
-  { target: 100,  suffix: "%", label: "Client Satisfaction" },
-  { target: 48,   suffix: "h", label: "Assessment Turnaround" },
+const statsData = [
+  { target: 1000, suffix: "+" },
+  { target: 40,   suffix: "+" },
+  { target: 100,  suffix: "%" },
+  { target: 48,   suffix: "h" },
 ];
 
 function StatItem({
@@ -37,7 +38,6 @@ function StatItem({
       if (progress < 1) requestAnimationFrame(tick);
     };
 
-    // Stagger each stat slightly
     const id = setTimeout(() => requestAnimationFrame(tick), index * 120);
     return () => clearTimeout(id);
   }, [started, target, index]);
@@ -48,7 +48,7 @@ function StatItem({
         "py-10 px-6 md:py-14 md:px-8 flex flex-col items-center justify-center border-white/20",
         index % 2 === 0 ? "border-r" : "md:border-r",
         index < 2 ? "border-b md:border-b-0" : "",
-        index === stats.length - 1 ? "md:border-r-0" : "",
+        index === statsData.length - 1 ? "md:border-r-0" : "",
       ].join(" ")}
     >
       <p className="text-white text-4xl md:text-5xl font-bold mb-2 leading-none tabular-nums">
@@ -62,6 +62,7 @@ function StatItem({
 export default function StatsStrip() {
   const ref = useRef<HTMLDivElement>(null);
   const [started, setStarted] = useState(false);
+  const t = useT();
 
   useEffect(() => {
     const el = ref.current;
@@ -81,8 +82,15 @@ export default function StatsStrip() {
 
   return (
     <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 bg-[#8C1A2B]">
-      {stats.map((stat, i) => (
-        <StatItem key={stat.label} {...stat} started={started} index={i} />
+      {statsData.map((stat, i) => (
+        <StatItem
+          key={i}
+          target={stat.target}
+          suffix={stat.suffix}
+          label={t.stats.labels[i]}
+          started={started}
+          index={i}
+        />
       ))}
     </div>
   );

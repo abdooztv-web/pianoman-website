@@ -1,6 +1,9 @@
-import Image from "next/image";
+"use client";
+
+import { useT } from "@/lib/i18n/LanguageContext";
 
 export default function Hero() {
+  const t = useT();
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col items-center overflow-hidden bg-black">
@@ -21,7 +24,6 @@ export default function Hero() {
         <div className="absolute inset-0"
           style={{ background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)", pointerEvents: "none" }}
         />
-
       </div>
 
       {/* ── Content ── */}
@@ -35,7 +37,7 @@ export default function Hero() {
           Pianoman
         </p>
 
-        {/* Main tagline — stacked on mobile for max impact */}
+        {/* Main tagline */}
         <h1
           className="text-white font-bold leading-none tracking-tight mb-6 md:mb-8"
           style={{
@@ -43,9 +45,9 @@ export default function Hero() {
             textShadow: "0 0 80px rgba(0,0,0,0.5), 0 4px 30px rgba(0,0,0,0.7)",
           }}
         >
-          <span className="block">Get.</span>
-          <span className="block">Fix.</span>
-          <span className="block">Repair.</span>
+          {t.hero.tagline.map((line, i) => (
+            <span key={i} className="block">{line}</span>
+          ))}
         </h1>
 
         {/* Divider */}
@@ -56,30 +58,30 @@ export default function Hero() {
           className="text-white/90 font-light leading-relaxed mb-8 md:mb-12 max-w-sm md:max-w-lg text-sm md:text-base"
           style={{ textShadow: "0 2px 20px rgba(0,0,0,0.8)" }}
         >
-          <span className="font-bold text-white">Cairo's</span> trusted piano specialists — rental, home visits,
-          and full restoration for instruments that deserve to be heard.
+          <span className="font-bold text-white">{t.hero.sub1}</span>
+          {t.hero.sub2}
         </p>
 
-        {/* CTAs — full width on mobile */}
+        {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center w-full max-w-xs sm:max-w-none">
           <a
             href="#contact"
             className="bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-xs px-10 py-4 hover:bg-[#6B1221] transition-colors w-full sm:w-auto text-center"
           >
-            Book a Service
+            {t.hero.bookService}
           </a>
           <a
             href="#services"
             className="border border-white/50 text-white font-medium uppercase tracking-widest text-xs px-10 py-4 hover:bg-white/10 transition-colors w-full sm:w-auto text-center"
           >
-            Explore Services
+            {t.hero.exploreServices}
           </a>
         </div>
       </div>
 
       {/* Scroll cue */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
-        <span className="text-white/30 text-[10px] uppercase tracking-[0.4em]">Scroll</span>
+        <span className="text-white/30 text-[10px] uppercase tracking-[0.4em]">{t.hero.scroll}</span>
         <div className="w-px h-10 bg-gradient-to-b from-white/30 to-transparent" />
       </div>
     </section>

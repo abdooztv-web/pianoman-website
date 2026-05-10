@@ -3,36 +3,13 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useT } from "@/lib/i18n/LanguageContext";
 
-const steps = [
-  {
-    src: "/restoration/1.jpg",
-    label: "Before",
-    caption: "The Schimmel arrived without front lighting",
-    tag: "BEFORE",
-    tagBg: "bg-gray-800",
-  },
-  {
-    src: "/restoration/2.jpg",
-    label: "LED Craft",
-    caption: "Handmade LED strip designed and fitted by our team",
-    tag: "DURING",
-    tagBg: "bg-amber-700",
-  },
-  {
-    src: "/restoration/4.jpg",
-    label: "After — Workshop",
-    caption: "Schimmel with bespoke green lamps, fresh out of the workshop",
-    tag: "AFTER",
-    tagBg: "bg-[#8C1A2B]",
-  },
-  {
-    src: "/restoration/3.jpg",
-    label: "After — Final",
-    caption: "Delivered and placed — ready to be played",
-    tag: "AFTER",
-    tagBg: "bg-[#8C1A2B]",
-  },
+const stepMeta = [
+  { src: "/restoration/1.jpg", tag: "BEFORE", tagBg: "bg-gray-800" },
+  { src: "/restoration/2.jpg", tag: "DURING", tagBg: "bg-amber-700" },
+  { src: "/restoration/4.jpg", tag: "AFTER",  tagBg: "bg-[#8C1A2B]" },
+  { src: "/restoration/3.jpg", tag: "AFTER",  tagBg: "bg-[#8C1A2B]" },
 ];
 
 function relativeDiff(i: number, active: number, total: number) {
@@ -42,7 +19,6 @@ function relativeDiff(i: number, active: number, total: number) {
   return d;
 }
 
-/* ── Shared nav bar (dots + arrows) ── */
 function NavBar({ active, total, go }: { active: number; total: number; go: (i: number) => void }) {
   return (
     <div className="flex items-center justify-center gap-5 mt-7">
@@ -81,11 +57,18 @@ function NavBar({ active, total, go }: { active: number; total: number; go: (i: 
   );
 }
 
-/* ── Shared step labels ── */
-function StepLabels({ active, go }: { active: number; go: (i: number) => void }) {
+function StepLabels({
+  active,
+  go,
+  labels,
+}: {
+  active: number;
+  go: (i: number) => void;
+  labels: string[];
+}) {
   return (
     <div className="flex justify-center flex-wrap gap-x-5 gap-y-2 mt-5">
-      {steps.map((step, i) => (
+      {labels.map((label, i) => (
         <button
           key={i}
           onClick={() => go(i)}
@@ -98,7 +81,7 @@ function StepLabels({ active, go }: { active: number; go: (i: number) => void })
           }`}>
             {i + 1}
           </span>
-          {step.label}
+          {label}
         </button>
       ))}
     </div>
@@ -107,14 +90,15 @@ function StepLabels({ active, go }: { active: number; go: (i: number) => void })
 
 export default function BeforeAfter() {
   const [active, setActive] = useState(0);
-  const total = steps.length;
+  const total = stepMeta.length;
   const touchX = useRef<number | null>(null);
+  const t = useT();
+  const steps = t.beforeAfter.steps;
 
   function go(i: number) {
     setActive(((i % total) + total) % total);
   }
 
-  /* ── Touch handlers for mobile swipe ── */
   function onTouchStart(e: React.TouchEvent) {
     touchX.current = e.touches[0].clientX;
   }
@@ -132,17 +116,17 @@ export default function BeforeAfter() {
         {/* Header */}
         <div className="mb-12 md:mb-16">
           <p className="text-[#8C1A2B] text-sm font-bold uppercase tracking-[0.3em] mb-4">
-            Project Showcase
+            {t.beforeAfter.label}
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-            Schimmel — LED Rebuild
+            {t.beforeAfter.heading}
           </h2>
           <p className="mt-4 text-gray-500 max-w-lg">
-            A Schimmel upright arrived without front lighting. Our team handcrafted a bespoke LED system from scratch and completed a full restoration.
+            {t.beforeAfter.description}
           </p>
         </div>
 
-        {/* ───────── MOBILE: swipe strip ───────── */}
+        {/* MOBILE: swipe strip */}
         <div className="md:hidden">
           <div
             className="overflow-hidden rounded-none"
@@ -153,17 +137,17 @@ export default function BeforeAfter() {
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${active * 100}%)` }}
             >
-              {steps.map((step, i) => (
+              {stepMeta.map((meta, i) => (
                 <div key={i} className="w-full flex-shrink-0">
                   <div className="relative aspect-[4/3] overflow-hidden shadow-xl">
-                    <Image src={step.src} alt={step.label} fill className="object-cover" />
+                    <Image src={meta.src} alt={steps[i].label} fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                    <span className={`absolute top-4 left-4 text-xs font-bold uppercase tracking-widest px-3 py-1.5 text-white ${step.tagBg}`}>
-                      {step.tag}
+                    <span className={`absolute top-4 left-4 text-xs font-bold uppercase tracking-widest px-3 py-1.5 text-white ${meta.tagBg}`}>
+                      {meta.tag}
                     </span>
                     <div className="absolute bottom-5 left-5 right-5">
-                      <p className="text-white font-bold text-xl leading-tight">{step.label}</p>
-                      <p className="text-white/70 text-sm mt-1">{step.caption}</p>
+                      <p className="text-white font-bold text-xl leading-tight">{steps[i].label}</p>
+                      <p className="text-white/70 text-sm mt-1">{steps[i].caption}</p>
                     </div>
                   </div>
                 </div>
@@ -171,24 +155,23 @@ export default function BeforeAfter() {
             </div>
           </div>
 
-          {/* Swipe hint — only on first card */}
           {active === 0 && (
             <p className="text-center text-gray-400 text-xs mt-3 tracking-wider">
-              Swipe to explore →
+              {t.beforeAfter.swipeHint}
             </p>
           )}
 
           <NavBar active={active} total={total} go={go} />
-          <StepLabels active={active} go={go} />
+          <StepLabels active={active} go={go} labels={steps.map((s) => s.label)} />
         </div>
 
-        {/* ───────── DESKTOP: 3D perspective carousel ───────── */}
+        {/* DESKTOP: 3D perspective carousel */}
         <div className="hidden md:block">
           <div
             className="relative flex items-center justify-center h-[460px]"
             style={{ perspective: "1400px" }}
           >
-            {steps.map((step, i) => {
+            {stepMeta.map((meta, i) => {
               const diff = relativeDiff(i, active, total);
               if (Math.abs(diff) > 1) return null;
 
@@ -209,7 +192,7 @@ export default function BeforeAfter() {
 
               return (
                 <div
-                  key={step.src}
+                  key={meta.src}
                   className="absolute w-full max-w-[580px] transition-all duration-700 ease-in-out"
                   style={{ transform, opacity, zIndex, transformStyle: "preserve-3d" }}
                   onClick={() => !isActive && go(i)}
@@ -218,15 +201,15 @@ export default function BeforeAfter() {
                     className={`relative aspect-[4/3] overflow-hidden ${!isActive ? "cursor-pointer" : ""}`}
                     style={{ boxShadow }}
                   >
-                    <Image src={step.src} alt={step.label} fill className="object-cover" />
+                    <Image src={meta.src} alt={steps[i].label} fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                    <span className={`absolute top-4 left-4 text-xs font-bold uppercase tracking-widest px-3 py-1.5 text-white ${step.tagBg}`}>
-                      {step.tag}
+                    <span className={`absolute top-4 left-4 text-xs font-bold uppercase tracking-widest px-3 py-1.5 text-white ${meta.tagBg}`}>
+                      {meta.tag}
                     </span>
                     {isActive && (
                       <div className="absolute bottom-5 left-5 right-5">
-                        <p className="text-white font-bold text-2xl leading-tight">{step.label}</p>
-                        <p className="text-white/70 text-sm mt-1">{step.caption}</p>
+                        <p className="text-white font-bold text-2xl leading-tight">{steps[i].label}</p>
+                        <p className="text-white/70 text-sm mt-1">{steps[i].caption}</p>
                       </div>
                     )}
                   </div>
@@ -236,19 +219,19 @@ export default function BeforeAfter() {
           </div>
 
           <NavBar active={active} total={total} go={go} />
-          <StepLabels active={active} go={go} />
+          <StepLabels active={active} go={go} labels={steps.map((s) => s.label)} />
         </div>
 
         {/* CTA */}
         <div className="mt-16 pt-10 border-t border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <p className="text-gray-600 max-w-md">
-            Have a piano that needs restoring? We'd love to hear its story.
+            {t.beforeAfter.ctaText}
           </p>
           <Link
             href="/#contact"
             className="inline-block bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-sm px-8 py-4 hover:bg-[#6B1221] transition-colors flex-shrink-0"
           >
-            Get a Quote
+            {t.beforeAfter.ctaBtn}
           </Link>
         </div>
 

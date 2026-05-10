@@ -1,6 +1,9 @@
-import Image from "next/image";
+"use client";
 
-const mobile = [
+import Image from "next/image";
+import { useT } from "@/lib/i18n/LanguageContext";
+
+const photos = [
   { src: "/moments/DSC09272.jpg", alt: "Technician working on grand piano" },
   { src: "/moments/DSC09494.jpg", alt: "Old upright piano awaiting restoration" },
   { src: "/moments/DSC09370.jpg", alt: "Craftsman at the workshop bench" },
@@ -10,6 +13,8 @@ const mobile = [
 ];
 
 export default function Gallery() {
+  const t = useT();
+
   return (
     <section id="gallery" className="bg-white py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6">
@@ -17,20 +22,20 @@ export default function Gallery() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4">
           <div>
             <p className="text-[#8C1A2B] text-sm font-bold uppercase tracking-[0.3em] mb-4">
-              Our Work
+              {t.gallery.label}
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-              Captured moments
+              {t.gallery.heading}
             </h2>
           </div>
           <p className="text-gray-500 text-sm max-w-xs leading-relaxed">
-            From restoration workshops to home visits — a glimpse into our world of pianos.
+            {t.gallery.sub}
           </p>
         </div>
 
         {/* Mobile: 2-col simple grid */}
         <div className="grid grid-cols-2 gap-3 md:hidden">
-          {mobile.map((p) => (
+          {photos.map((p) => (
             <div key={p.src} className="relative aspect-square overflow-hidden">
               <Image src={p.src} alt={p.alt} fill className="object-cover" />
               <div className="absolute inset-0 bg-[#8C1A2B]/15 pointer-events-none" />

@@ -3,19 +3,22 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useT, useLanguage } from "@/lib/i18n/LanguageContext";
 
-const links = [
-  { label: "Services", href: "/#services" },
-  { label: "Restoration", href: "/#restoration" },
-  { label: "Gallery", href: "/#gallery" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
-  { label: "Blog", href: "/blog" },
+const navHrefs = [
+  { key: "services" as const, href: "/#services" },
+  { key: "restoration" as const, href: "/#restoration" },
+  { key: "gallery" as const, href: "/#gallery" },
+  { key: "about" as const, href: "/#about" },
+  { key: "contact" as const, href: "/#contact" },
+  { key: "blog" as const, href: "/blog" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const t = useT();
+  const { lang, setLang } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -58,7 +61,7 @@ export default function Navbar() {
 
           {/* Desktop Nav — centered */}
           <nav className="hidden md:flex items-center justify-center gap-8">
-            {links.map((l) => (
+            {navHrefs.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -66,25 +69,38 @@ export default function Navbar() {
                   solid ? "text-gray-500 hover:text-gray-900" : "text-white/75 hover:text-white"
                 }`}
               >
-                {l.label}
+                {t.nav[l.key]}
               </Link>
             ))}
           </nav>
 
-          {/* Right: Book Now + Hamburger */}
+          {/* Right: Lang toggle + Book Now + Hamburger */}
           <div className="flex items-center justify-end gap-3">
+            {/* Language toggle */}
+            <button
+              onClick={() => setLang(lang === "en" ? "ar" : "en")}
+              className={`hidden md:flex items-center text-xs font-bold uppercase tracking-wider px-3 py-1.5 border transition-colors ${
+                solid
+                  ? "border-gray-300 text-gray-500 hover:border-[#8C1A2B] hover:text-[#8C1A2B]"
+                  : "border-white/40 text-white/80 hover:border-white hover:text-white"
+              }`}
+              aria-label="Switch language"
+            >
+              {t.nav.langSwitch}
+            </button>
+
             <Link
               href="/#contact"
               className="hidden md:block bg-[#8C1A2B] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 hover:bg-[#6B1221] transition-colors"
             >
-              Book Now
+              {t.nav.bookNow}
             </Link>
 
             {/* Animated hamburger → X */}
             <button
               onClick={() => setOpen(!open)}
               className="md:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10"
-              aria-label={open ? "Close menu" : "Open menu"}
+              aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
             >
               <span className={`block w-6 h-0.5 transition-all duration-300 origin-center ${solid ? "bg-gray-900" : "bg-white"} ${open ? "translate-y-2 rotate-45" : ""}`} />
               <span className={`block w-6 h-0.5 transition-all duration-300 ${solid ? "bg-gray-900" : "bg-white"} ${open ? "opacity-0 scale-x-0" : ""}`} />
@@ -102,15 +118,25 @@ export default function Navbar() {
         }`}
       >
         <div className="pt-20 px-8 flex flex-col flex-1">
+          {/* Mobile lang toggle */}
+          <div className="flex justify-end pb-4">
+            <button
+              onClick={() => setLang(lang === "en" ? "ar" : "en")}
+              className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 border border-gray-300 text-gray-500 hover:border-[#8C1A2B] hover:text-[#8C1A2B] transition-colors"
+            >
+              {t.nav.langSwitch}
+            </button>
+          </div>
+
           <nav className="flex flex-col gap-1 flex-1 justify-center">
-            {links.map((l) => (
+            {navHrefs.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className="block py-5 border-b border-gray-100 text-3xl font-bold text-gray-900 uppercase tracking-tight active:text-[#8C1A2B]"
               >
-                {l.label}
+                {t.nav[l.key]}
               </Link>
             ))}
           </nav>
@@ -121,7 +147,7 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
               className="block bg-[#8C1A2B] text-white font-bold uppercase tracking-widest text-sm py-5 text-center w-full"
             >
-              Book a Service
+              {t.nav.bookService}
             </Link>
             <div className="flex flex-col gap-2 text-center">
               <a href="tel:01555001233" className="text-gray-500 text-sm">01555 001 233</a>

@@ -18,3 +18,8 @@ body {
   font-family: var(--font-ubuntu), 'Ubuntu', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+:lang(ar) body,
+:lang(ar) {
+  font-family: var(--font-cairo), 'Cairo', sans-serif;
+}
