@@ -83,17 +83,34 @@ const en = {
   },
   beforeAfter: {
     label: "Project Showcase",
-    heading: "Schimmel — LED Rebuild",
-    description:
-      "A Schimmel upright arrived without front lighting. Our team handcrafted a bespoke LED system from scratch and completed a full restoration.",
     swipeHint: "Swipe to explore →",
     ctaText: "Have a piano that needs restoring? We'd love to hear its story.",
     ctaBtn: "Get a Quote",
-    steps: [
-      { label: "Before", caption: "The Schimmel arrived without front lighting" },
-      { label: "LED Craft", caption: "Handmade LED strip designed and fitted by our team" },
-      { label: "After — Workshop", caption: "Schimmel with bespoke green lamps, fresh out of the workshop" },
-      { label: "After — Final", caption: "Delivered and placed — ready to be played" },
+    projects: [
+      {
+        heading: "Schimmel — LED Rebuild",
+        description:
+          "A Schimmel upright arrived without front lighting. Our team handcrafted a bespoke LED system from scratch and completed a full restoration.",
+        steps: [
+          { label: "Before", caption: "The Schimmel arrived without front lighting" },
+          { label: "LED Craft", caption: "Handmade LED strip designed and fitted by our team" },
+          { label: "After — Workshop", caption: "Schimmel with bespoke green lamps, fresh out of the workshop" },
+          { label: "After — Final", caption: "Delivered and placed — ready to be played" },
+        ],
+      },
+      {
+        heading: "Krüger Berlin — Full Restoration",
+        description:
+          "A century-old Krüger Berlin upright arrived in pieces. Our team rebuilt it from the ground up — repairing the frame and refinishing the cabinet to a mirror-black lacquer.",
+        steps: [
+          { label: "Before — Detail", caption: "Legs detached and frame damaged on arrival" },
+          { label: "Before — Full", caption: "The Krüger Berlin fully dismantled in our workshop" },
+          { label: "Before — Side", caption: "Structural damage visible from all angles" },
+          { label: "After — Front", caption: "Fully restored with fresh mirror-black lacquer" },
+          { label: "After — Side", caption: "Side profile showing the flawless finish achieved" },
+          { label: "Delivered", caption: "Krüger Berlin delivered to its new home, ready to play" },
+        ],
+      },
     ],
   },
   gallery: {
@@ -286,17 +303,34 @@ const ar: typeof en = {
   },
   beforeAfter: {
     label: "عرض المشاريع",
-    heading: "shimmel — إعادة بناء الغطاء الامامي",
-    description:
-      "وصل بيانو شيميل المستقيم بدون غطاء أمامي. قام فريقنا بتصميم وتركيب الغطاء LED مخصص من الصفر وأجرى ترميماً كاملاً.",
     swipeHint: "← مرر للاستكشاف",
     ctaText: "هل لديك بيانو يحتاج إلى ترميم؟ يسعدنا سماع قصته.",
     ctaBtn: "احصل على عرض سعر",
-    steps: [
-      { label: "قبل", caption: "وصل الشيميل بدون غطاء أمامي" },
-      { label: "أثناء العمل", caption: " مصنوع يدوياً صممه وركّبه فريقنا" },
-      { label: "بعد — الورشة", caption: " خرج حديثاً من الورشة" },
-      { label: "بعد — النهائي", caption: "تم التسليم والتركيب — جاهز للعزف" },
+    projects: [
+      {
+        heading: "shimmel — إعادة بناء الغطاء الامامي",
+        description:
+          "وصل بيانو شيميل المستقيم بدون غطاء أمامي. قام فريقنا بتصميم وتركيب الغطاء LED مخصص من الصفر وأجرى ترميماً كاملاً.",
+        steps: [
+          { label: "قبل", caption: "وصل الشيميل بدون غطاء أمامي" },
+          { label: "أثناء العمل", caption: " مصنوع يدوياً صممه وركّبه فريقنا" },
+          { label: "بعد — الورشة", caption: " خرج حديثاً من الورشة" },
+          { label: "بعد — النهائي", caption: "تم التسليم والتركيب — جاهز للعزف" },
+        ],
+      },
+      {
+        heading: "كروغر برلين — ترميم كامل",
+        description:
+          "وصل بيانو كروغر برلين العمودي ذو القرن الماضي وهو في قطع. أعاد فريقنا بناءه من الصفر — إصلاح الإطار وإعادة طلاء الهيكل بلمسة سوداء مرآوية.",
+        steps: [
+          { label: "قبل — تفاصيل", caption: "الأرجل منفصلة والإطار تالف عند الوصول" },
+          { label: "قبل — كامل", caption: "بيانو كروغر برلين مفككاً بالكامل في ورشتنا" },
+          { label: "قبل — جانبي", caption: "الأضرار الهيكلية واضحة من جميع الزوايا" },
+          { label: "بعد — أمامي", caption: "مُرمَّم بالكامل بطلاء أسود مرآوي جديد" },
+          { label: "بعد — جانبي", caption: "الجانب يُظهر اللمسة النهائية المثالية" },
+          { label: "تم التسليم", caption: "تسليم كروغر برلين لمنزله الجديد، جاهز للعزف" },
+        ],
+      },
     ],
   },
   gallery: {

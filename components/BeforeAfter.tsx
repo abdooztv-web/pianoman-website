@@ -6,11 +6,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useT } from "@/lib/i18n/LanguageContext";
 
-const stepMeta = [
-  { src: "/restoration/1.jpg", tag: "BEFORE", tagBg: "bg-gray-800" },
-  { src: "/restoration/2.jpg", tag: "DURING", tagBg: "bg-amber-700" },
-  { src: "/restoration/4.jpg", tag: "AFTER",  tagBg: "bg-[#8C1A2B]" },
-  { src: "/restoration/3.jpg", tag: "AFTER",  tagBg: "bg-[#8C1A2B]" },
+const projectsMeta = [
+  [
+    { src: "/restoration/1.jpg",     tag: "BEFORE",    tagBg: "bg-gray-800" },
+    { src: "/restoration/2.jpg",     tag: "DURING",    tagBg: "bg-amber-700" },
+    { src: "/restoration/4.jpg",     tag: "AFTER",     tagBg: "bg-[#8C1A2B]" },
+    { src: "/restoration/3.jpg",     tag: "AFTER",     tagBg: "bg-[#8C1A2B]" },
+  ],
+  [
+    { src: "/restoration/may/1.png", tag: "BEFORE",    tagBg: "bg-gray-800" },
+    { src: "/restoration/may/2.png", tag: "BEFORE",    tagBg: "bg-gray-800" },
+    { src: "/restoration/may/3.png", tag: "BEFORE",    tagBg: "bg-gray-800" },
+    { src: "/restoration/may/4.png", tag: "AFTER",     tagBg: "bg-[#8C1A2B]" },
+    { src: "/restoration/may/5.png", tag: "AFTER",     tagBg: "bg-[#8C1A2B]" },
+    { src: "/restoration/may/6.png", tag: "DELIVERED", tagBg: "bg-[#8C1A2B]" },
+  ],
 ];
 
 function relativeDiff(i: number, active: number, total: number) {
@@ -90,14 +100,23 @@ function StepLabels({
 }
 
 export default function BeforeAfter() {
+  const [projectIdx, setProjectIdx] = useState(0);
   const [active, setActive] = useState(0);
-  const total = stepMeta.length;
   const touchX = useRef<number | null>(null);
   const t = useT();
-  const steps = t.beforeAfter.steps;
+
+  const stepMeta = projectsMeta[projectIdx];
+  const project = t.beforeAfter.projects[projectIdx];
+  const steps = project.steps;
+  const total = stepMeta.length;
 
   function go(i: number) {
     setActive(((i % total) + total) % total);
+  }
+
+  function switchProject(i: number) {
+    setProjectIdx(i);
+    setActive(0);
   }
 
   function onTouchStart(e: React.TouchEvent) {
@@ -119,11 +138,29 @@ export default function BeforeAfter() {
           <p className="text-[#8C1A2B] text-sm font-bold uppercase tracking-[0.3em] mb-4">
             {t.beforeAfter.label}
           </p>
+
+          {/* Project tabs */}
+          <div className="flex flex-wrap gap-3 mb-6">
+            {t.beforeAfter.projects.map((p, i) => (
+              <button
+                key={i}
+                onClick={() => switchProject(i)}
+                className={`text-sm font-bold uppercase tracking-widest px-4 py-2 border transition-colors ${
+                  i === projectIdx
+                    ? "border-[#8C1A2B] bg-[#8C1A2B] text-white"
+                    : "border-gray-300 text-gray-500 hover:border-gray-500 hover:text-gray-700"
+                }`}
+              >
+                {p.heading}
+              </button>
+            ))}
+          </div>
+
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-            {t.beforeAfter.heading}
+            {project.heading}
           </h2>
           <p className="mt-4 text-gray-500 max-w-lg">
-            {t.beforeAfter.description}
+            {project.description}
           </p>
         </div>
 
@@ -193,7 +230,7 @@ export default function BeforeAfter() {
 
               return (
                 <div
-                  key={meta.src}
+                  key={`${projectIdx}-${meta.src}`}
                   className="absolute w-full max-w-[580px] transition-all duration-700 ease-in-out"
                   style={{ transform, opacity, zIndex, transformStyle: "preserve-3d" }}
                   onClick={() => !isActive && go(i)}
